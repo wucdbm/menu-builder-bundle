@@ -1,8 +1,8 @@
 {
-    "name": "wucdbm/wucdbm-bundle",
+    "name": "wucdbm/menu-builder-bundle",
     "type": "symfony-bundle",
-    "description": "Utilities for Symfony2",
-    "keywords": ["wucdbm"],
+    "description": "A simple, standalone Menu Builder for Symfony 2 Applications",
+    "keywords": ["wucdbm", "menu", "builder", "menu builder", "symfony2"],
     "authors": [
         {
             "name": "Martin Kirilov",
@@ -11,7 +11,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Wucdbm\\Bundle\\WucdbmBundle\\": "" }
+        "psr-4": { "Wucdbm\\Bundle\\MenuBuilderBundle\\": "" }
     },
-    "license": "GPL-3.0"
+    "license": "GPL-2.0"
 }
