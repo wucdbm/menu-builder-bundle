@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_routes_parameters")
+ * @ORM\Table(name="_wucdbm_menu_builder_routes_parameters",
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="route_parameter", columns={"route_id", "parameter"})
+ *      }
+ * )
  */
-// TODO: Maybe RouteParameterType
-// 1. Required
-// 2. Optional
 class RouteParameter {
 
     /**
@@ -27,25 +28,33 @@ class RouteParameter {
     protected $parameter;
 
     /**
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=true)
      */
     protected $name;
 
     /**
-     * @ORM\Column(name="is_required", type="boolean", nullable=false)
-     */
-    protected $isRequired;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Route")
+     * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Route", inversedBy="parameters")
      * @ORM\JoinColumn(name="route_id", referencedColumnName="id", nullable=false)
      */
     protected $route;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
+     */
+    protected $type;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter", mappedBy="parameter")
      */
     protected $values;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->values = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -83,25 +92,11 @@ class RouteParameter {
     }
 
     /**
-     * @return mixed
-     */
-    public function getIsRequired() {
-        return $this->isRequired;
-    }
-
-    /**
-     * @param mixed $isRequired
-     */
-    public function setIsRequired($isRequired) {
-        $this->isRequired = $isRequired;
-    }
-
-    /**
      * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\Route $route
      *
      * @return $this
      */
-    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Route $route = null) {
+    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Route $route) {
         $this->route = $route;
 
         return $this;
@@ -112,6 +107,24 @@ class RouteParameter {
      */
     public function getRoute() {
         return $this->route;
+    }
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType $type
+     *
+     * @return $this
+     */
+    public function setType(\Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType $type) {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType
+     */
+    public function getType() {
+        return $this->type;
     }
 
     /**

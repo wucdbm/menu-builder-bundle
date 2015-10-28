@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_routes")
+ * @ORM\Table(name="_wucdbm_menu_builder_routes",
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="route", columns={"route"})
+ *      }
+ * )
  */
 class Route {
 
@@ -24,7 +28,7 @@ class Route {
     protected $route;
 
     /**
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=true)
      */
     protected $name;
 
@@ -34,10 +38,16 @@ class Route {
     protected $items;
 
     /**
+     * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter", mappedBy="route")
+     */
+    protected $parameters;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->items = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     /**
@@ -104,6 +114,37 @@ class Route {
      */
     public function getItems() {
         return $this->items;
+    }
+
+    /**
+     * Add booking
+     *
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter
+     *
+     * @return $this
+     */
+    public function addParameter(\Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter) {
+        $this->parameters[] = $parameter;
+
+        return $this;
+    }
+
+    /**
+     * Remove booking
+     *
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter
+     */
+    public function removeParameter(\Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter) {
+        $this->parameters->removeElement($parameter);
+    }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParameters() {
+        return $this->parameters;
     }
 
 }

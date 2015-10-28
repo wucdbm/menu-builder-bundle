@@ -2,6 +2,6 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Manager;
 
-class MenuManager {
+class MenuManager extends Manager {
 
 }

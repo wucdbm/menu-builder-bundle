@@ -18,7 +18,8 @@ class WucdbmWucdbmExtension extends Extension {
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
-        $loader->load('services/core.xml');
+        $loader->load('services/managers.xml');
+        $loader->load('services/repositories.xml');
     }
 
     public function getXsdValidationBasePath() {

@@ -1,0 +1,70 @@
+<?php
+
+namespace Wucdbm\Bundle\MenuBuilderBundle\Manager;
+
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Router;
+use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterRepository;
+use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterTypeRepository;
+use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
+
+class RouteManager extends Manager {
+
+    /**
+     * @var RouteRepository
+     */
+    protected $routeRepo;
+
+    /**
+     * @var RouteParameterRepository
+     */
+    protected $routeParameterRepo;
+
+    /**
+     * @var RouteParameterTypeRepository
+     */
+    protected $routeParameterTypeRepo;
+
+    /**
+     * RouteManager constructor.
+     * @param RouteRepository $routeRepo
+     * @param RouteParameterRepository $routeParameterRepo
+     * @param RouteParameterTypeRepository $routeParameterTypeRepo
+     */
+    public function __construct(RouteRepository $routeRepo, RouteParameterRepository $routeParameterRepo, RouteParameterTypeRepository $routeParameterTypeRepo) {
+        $this->routeRepo = $routeRepo;
+        $this->routeParameterRepo = $routeParameterRepo;
+        $this->routeParameterTypeRepo = $routeParameterTypeRepo;
+    }
+
+    public function importRouter(Router $router) {
+        /** @var $collection RouteCollection */
+        $collection = $router->getRouteCollection();
+
+        $allRoutes = $collection->all();
+
+        /**
+         * @var string $routeName
+         * @var Route $route
+         */
+        foreach ($allRoutes as $routeName => $route) {
+            $this->importRoute($routeName, $route);
+        }
+    }
+
+    public function importRoute($routeName, Route $route) {
+        $routeEntity = $this->routeRepo->saveIfNotExists($routeName);
+        $compiledRoute = $route->compile();
+        $requiredType = $this->routeParameterTypeRepo->findRequiredType();
+        foreach ($compiledRoute->getVariables() as $parameter) {
+            $routeParameter = $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
+//            $routeParameter = $this->routeParameterRepo->createParameter();
+//            $routeParameter->setRoute($routeEntity);
+//            $routeParameter->setParameter($parameter);
+//            $routeParameter->setIsRequired(true);
+        }
+
+    }
+
+}
