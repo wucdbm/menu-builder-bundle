@@ -35,4 +35,61 @@ class MenuItemParameter {
      */
     protected $parameter;
 
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value) {
+        $this->value = $value;
+    }
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item
+     *
+     * @return $this
+     */
+    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item = null) {
+        $this->item = $item;
+
+        return $this;
+    }
+
+    /**
+     * @return \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem
+     */
+    public function getItem() {
+        return $this->item;
+    }
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter
+     *
+     * @return $this
+     */
+    public function setParameter(\Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter $parameter = null) {
+        $this->parameter = $parameter;
+
+        return $this;
+    }
+
+    /**
+     * @return \Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter
+     */
+    public function getParameter() {
+        return $this->parameter;
+    }
+
 }

@@ -28,4 +28,82 @@ class Route {
      */
     protected $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="route")
+     */
+    protected $items;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->items = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoute() {
+        return $this->route;
+    }
+
+    /**
+     * @param mixed $route
+     */
+    public function setRoute($route) {
+        $this->route = $route;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
+     * Add booking
+     *
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item
+     *
+     * @return $this
+     */
+    public function addItem(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item) {
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * Remove booking
+     *
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item
+     */
+    public function removeItem(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item) {
+        $this->items->removeElement($item);
+    }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getItems() {
+        return $this->items;
+    }
+
 }
