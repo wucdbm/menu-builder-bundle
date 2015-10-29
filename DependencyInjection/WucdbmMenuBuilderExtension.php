@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class WucdbmWucdbmExtension extends Extension {
+class WucdbmMenuBuilderExtension extends Extension {
 
     public function load(array $configs, ContainerBuilder $container) {
         $config = array();
