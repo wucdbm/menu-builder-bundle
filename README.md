@@ -7,6 +7,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 - There should be a button to import any new routes.
 - Also save the route pattern
 - The ability to get all the menus at once
+- Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value
 
 ## Usage
 
