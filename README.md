@@ -6,6 +6,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 - Should be possible to use the builder via an iframe, which makes it convenient to be integrated into any sort of administration panels.
 - There should be a button to import any new routes.
 - Also save the route pattern
+- The ability to get all the menus at once
 
 ## Usage
 
