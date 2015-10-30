@@ -42,7 +42,8 @@ class MenuItemParameterType extends AbstractType {
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults([
-            'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter'
+            'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter',
+            'label' => false
         ]);
     }
 
