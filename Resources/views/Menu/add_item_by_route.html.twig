@@ -1,4 +1,4 @@
-{% extends '@WucdbmMenuBuilder/Route/base.html.twig' %}
+{% extends '@WucdbmMenuBuilder/Menu/base.html.twig' %}
 
 {% block content %}
 
@@ -10,13 +10,17 @@
             {{ form_row(form.name) }}
             {% if form.parameters|length %}
                 {{ form_row(form.parameters) }}
+            {% else %}
+                <div class="hidden">
+                    {{ form_row(form.parameters) }}
+                </div>
             {% endif %}
             <div class="form-group">
                 <button type="submit" class="btn btn-default">
                     Add Item
                 </button>
             </div>
-            {{ form_end(form, {render_rest: false}) }}
+            {{ form_end(form) }}
         </div>
     </div>
 
@@ -33,17 +37,17 @@
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        {{ menu.name }}
+        <code>{{ menu.name }}</code>
+    </li>
+    <li>
+        Add an Item
     </li>
     {% if item.parent %}
         <li>
-            Child to {{ item.name }}
+            Child to <code>{{ item.parent.name }}</code>
         </li>
     {% endif %}
     <li>
-        Route {{ route.route }}
-    </li>
-    <li>
-        Add a Menu Item
+        Route <code>{{ route.route }}</code>
     </li>
 {% endblock %}
