@@ -1,6 +1,12 @@
 <td>{{ parameter.id }}</td>
 <td>{{ parameter.parameter }}</td>
-<td>{{ parameter.name }}</td>
+<td>
+    <a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
+       data-url="{{ path('wucdbm_menu_builder_route_parameter_name_update', {id: parameter.id}) }}"
+       data-placement="top" title="Set Route Name">
+        {{ parameter.name }}
+    </a>
+</td>
 <td>
     {{ parameter.route.route }}
     {% if parameter.route.name %}

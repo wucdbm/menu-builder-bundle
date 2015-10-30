@@ -38,6 +38,20 @@ class RouteParameterRepository extends AbstractRepository {
         return $this->returnFilteredEntities($builder, $filter, 'p.id');
     }
 
+    /**
+     * @param $id
+     * @return RouteParameter
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneById($id) {
+        $builder = $this->getQueryBuilder()
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id);
+        $query = $builder->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
     public function getQueryBuilder() {
         return $this->createQueryBuilder('p')
             ->addSelect('t, r, v')

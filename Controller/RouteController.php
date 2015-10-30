@@ -63,4 +63,21 @@ class RouteController extends BaseController {
         return $this->render('@WucdbmMenuBuilder/Route/parameters/list.html.twig', $data);
     }
 
+    public function updateRouteParameterNameAction($id, Request $request) {
+        $post = $request->request;
+        // name, value, pk
+        $name = $post->get('value', null);
+
+        if (null === $name) {
+            return new Response('Error - Empty value', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        $repo = $this->container->get('wucdbm_menu_builder.repo.routes_parameters');
+        $parameter = $repo->findOneById($id);
+        $parameter->setName($name);
+        $repo->save($parameter);
+
+        return new Response();
+    }
+
 }
