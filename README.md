@@ -5,6 +5,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 - TODO: Take Symfony\Component\Routing\Route::$requirements and save them to the route. When creating a MenuItem, use a select box instead of a text input based on the values. Try to explode('|', $requirements).
 - TODO: Add filter for absolute urls
+- TODO: Edit links in menus
 - Should be possible to use the builder via an iframe, which makes it convenient to be integrated into any sort of administration panels.
 - There should be a button to import any new routes.
 - Also save the route pattern
