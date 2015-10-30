@@ -40,7 +40,7 @@
                             Visit
                         </a>
                     </div>
-                    {% if item.children %}
+                    {% if item.children|length %}
                         <div class="clearfix"></div>
                         <br>
                         {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: item.children} %}
