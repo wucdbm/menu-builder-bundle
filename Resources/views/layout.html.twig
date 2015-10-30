@@ -90,6 +90,9 @@
                 $('#editBookingContainer').trigger('refresh');
             }
         });
+        if (window.frameElement) {
+            $(window.frameElement).height($(document).height());
+        }
         {% block scripts '' %}
     });
 </script>
