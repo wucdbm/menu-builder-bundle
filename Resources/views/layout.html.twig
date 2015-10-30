@@ -91,7 +91,11 @@
             }
         });
         if (window.frameElement) {
-            $(window.frameElement).height($(document).height());
+            var height = $(document).height();
+            if (500 < height) {
+                height = 500;
+            }
+            $(window.frameElement).height(height);
         }
         {% block scripts '' %}
     });
