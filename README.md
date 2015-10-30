@@ -14,6 +14,8 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 ## Usage
 
+Having properly configured uglifycss and uglifyjs is a requirement for production.
+
 Add this bundle to your AppKernel.php `new \Wucdbm\Bundle\MenuBuilderBundle\WucdbmMenuBuilderBundle()`
 
 In your config.yml, add `WucdbmMenuBuilderBundle` to your assetic bundles, as well as your doctrine mapping (if not automatic)
