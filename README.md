@@ -1,13 +1,14 @@
 # menu-builder-bundle
 A simple, standalone Menu Builder for Symfony 2 Applications
 
-## Upcoming
+## Upcoming / TODO
 
 - Should be possible to use the builder via an iframe, which makes it convenient to be integrated into any sort of administration panels.
 - There should be a button to import any new routes.
 - Also save the route pattern
 - The ability to get all the menus at once
 - Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value
+- Error pages for missing items
 
 ## Usage
 
