@@ -1,0 +1,48 @@
+wucdbm_menu_builder_menu_list:
+    path:        /list
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:list }
+
+wucdbm_menu_builder_menu_create:
+    path:        /create
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:create }
+
+wucdbm_menu_builder_menu_view_refresh:
+    path:        /{id}/view/refresh
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:refresh }
+
+wucdbm_menu_builder_menu_view:
+    path:        /{id}/view
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:view }
+
+wucdbm_menu_builder_menu_name_update:
+    path:        /{id}/update/name
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:updateName }
+
+wucdbm_menu_builder_menu_remove:
+    path:        /{id}/remove
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:remove }
+
+wucdbm_menu_builder_menu_items_add_by_route:
+    path:        /{id}/items/add/{routeId}
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:addItemByRoute }
+
+wucdbm_menu_builder_menu_item_name_update:
+    path:        /items/{id}/update/name
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:updateItemName }
+
+wucdbm_menu_builder_menu_items_add:
+    path:        /{id}/items/add
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:addItem }
+
+wucdbm_menu_builder_menu_items_add_sub_by_route:
+    path:        /{id}/items/sub/{itemId}/add/{routeId}
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:addSubItemByRoute }
+
+wucdbm_menu_builder_menu_items_add_sub:
+    path:        /{id}/items/{itemId}/sub/add
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:addSubItem }
+
+wucdbm_menu_builder_menu_items_remove:
+    path:        /{id}/items/{itemId}/remove
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:removeItem }
+

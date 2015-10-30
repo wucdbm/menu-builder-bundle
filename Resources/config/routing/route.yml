@@ -1,0 +1,12 @@
+wucdbm_menu_builder_route_list:
+    path:        /list
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Route:listRoutes }
+
+wucdbm_menu_builder_route_name_update:
+    path:        /{id}/update/name
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Route:updateRouteName }
+
+wucdbm_menu_builder_route_parameter_list:
+    path:        /parameters/list
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Route:listParameters }
+

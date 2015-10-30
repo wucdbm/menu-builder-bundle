@@ -19,6 +19,11 @@ class MenuItem {
     protected $id;
 
     /**
+     * @ORM\Column(name="name", type="string", nullable=false)
+     */
+    protected $name;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu", inversedBy="items")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", nullable=false)
      */
@@ -36,10 +41,22 @@ class MenuItem {
     protected $parameters;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="parent")
+     */
+    protected $children;
+
+    /**
      * Constructor
      */
     public function __construct() {
-        $this->items = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
@@ -50,11 +67,25 @@ class MenuItem {
     }
 
     /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    /**
      * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu $menu
      *
      * @return $this
      */
-    public function setMenu(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu $menu = null) {
+    public function setMenu(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu $menu) {
         $this->menu = $menu;
 
         return $this;
@@ -72,7 +103,7 @@ class MenuItem {
      *
      * @return $this
      */
-    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Route $route = null) {
+    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\Route $route) {
         $this->route = $route;
 
         return $this;
@@ -108,6 +139,51 @@ class MenuItem {
      */
     public function getParameters() {
         return $this->parameters;
+    }
+
+    // TODO:
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $parent
+     *
+     * @return $this
+     */
+    public function setParent(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $parent) {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return \Wucdbm\Bundle\MenuBuilderBundle\Entity\Route
+     */
+    public function getParent() {
+        return $this->parent;
+    }
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $child
+     *
+     * @return $this
+     */
+    public function addChild(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $child) {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $chid
+     */
+    public function removeChild(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $chid) {
+        $this->children->removeElement($chid);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren() {
+        return $this->children;
     }
 
 }

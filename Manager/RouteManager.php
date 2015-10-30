@@ -38,6 +38,9 @@ class RouteManager extends Manager {
         $this->routeParameterTypeRepo = $routeParameterTypeRepo;
     }
 
+    /**
+     * @param Router $router
+     */
     public function importRouter(Router $router) {
         /** @var $collection RouteCollection */
         $collection = $router->getRouteCollection();
@@ -53,18 +56,17 @@ class RouteManager extends Manager {
         }
     }
 
+    /**
+     * @param $routeName
+     * @param Route $route
+     */
     public function importRoute($routeName, Route $route) {
         $routeEntity = $this->routeRepo->saveIfNotExists($routeName);
         $compiledRoute = $route->compile();
         $requiredType = $this->routeParameterTypeRepo->findRequiredType();
         foreach ($compiledRoute->getVariables() as $parameter) {
-            $routeParameter = $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
-//            $routeParameter = $this->routeParameterRepo->createParameter();
-//            $routeParameter->setRoute($routeEntity);
-//            $routeParameter->setParameter($parameter);
-//            $routeParameter->setIsRequired(true);
+            $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
         }
-
     }
 
 }

@@ -1,0 +1,27 @@
+<td>
+    {{ route.id }}
+</td>
+<td>
+    {{ route.route }}
+</td>
+<td>
+    <a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
+       data-url="{{ path('wucdbm_menu_builder_route_name_update', {id: route.id}) }}"
+       data-placement="top" title="Set Route Name">
+        {{ route.name }}
+    </a>
+</td>
+<td>
+    {% if route.parameters|length %}
+        <ul>
+            {% for param in route.parameters %}
+                <li>
+                    <code>{{ param.parameter }}</code>
+                    {% if param.name %}
+                        ({{ param.name }})
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</td>

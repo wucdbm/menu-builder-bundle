@@ -24,11 +24,6 @@ class Menu {
     protected $name;
 
     /**
-     * @ORM\Column(name="alias", type="string", nullable=false)
-     */
-    protected $alias;
-
-    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="menu")
      */
     protected $items;
@@ -59,20 +54,6 @@ class Menu {
      */
     public function setName($name) {
         $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAlias() {
-        return $this->alias;
-    }
-
-    /**
-     * @param mixed $alias
-     */
-    public function setAlias($alias) {
-        $this->alias = $alias;
     }
 
     /**

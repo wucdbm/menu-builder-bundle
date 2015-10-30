@@ -1,0 +1,10 @@
+<td>{{ parameter.id }}</td>
+<td>{{ parameter.parameter }}</td>
+<td>{{ parameter.name }}</td>
+<td>
+    {{ parameter.route.route }}
+    {% if parameter.route.name %}
+        {{ parameter.route.name }}
+    {% endif %}
+</td>
+<td>{{ parameter.type.name }}</td>

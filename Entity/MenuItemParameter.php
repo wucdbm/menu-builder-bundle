@@ -2,12 +2,15 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_menus_items_parameters")
+ * @ORM\Table(name="_wucdbm_menu_builder_menus_items_parameters",
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="item_parameter", columns={"item_id", "parameter_id"})
+ *      }
+ * )
  */
 class MenuItemParameter {
 
@@ -61,7 +64,7 @@ class MenuItemParameter {
      *
      * @return $this
      */
-    public function setRoute(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item = null) {
+    public function setItem(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $item) {
         $this->item = $item;
 
         return $this;

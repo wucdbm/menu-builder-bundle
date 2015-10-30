@@ -1,0 +1,17 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="wucdbm_menu_builder.twig.menu" class="Wucdbm\Bundle\MenuBuilderBundle\Twig\MenuExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="wucdbm_menu_builder.manager.menus"/>
+        </service>
+        <service id="wucdbm_menu_builder.twig.menu_item" class="Wucdbm\Bundle\MenuBuilderBundle\Twig\MenuItemExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="router"/>
+        </service>
+
+    </services>
+</container>

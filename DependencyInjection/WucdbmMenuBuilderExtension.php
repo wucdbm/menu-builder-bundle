@@ -20,6 +20,7 @@ class WucdbmMenuBuilderExtension extends Extension {
         );
         $loader->load('services/managers.xml');
         $loader->load('services/repositories.xml');
+        $loader->load('services/twig.xml');
     }
 
     public function getXsdValidationBasePath() {

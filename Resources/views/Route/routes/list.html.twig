@@ -1,0 +1,49 @@
+{% extends '@WucdbmMenuBuilder/Route/base.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% form_theme filterForm '@WucdbmMenuBuilder/_shared/form/filter_theme.html.twig' %}
+            {{ form(filterForm) }}
+
+            {% if routes|length > 0 %}
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-striped table-condensed flip-content">
+                        <thead class="flip-content">
+                        <tr>
+                            <th>ID</th>
+                            <th>Route</th>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for route in routes %}
+                            <tr>
+                                {% include '@WucdbmMenuBuilder/Route/routes/list_row.html.twig' %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    No routes found
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% include '@Admin/_shared/pagination.html.twig' %}
+    </div>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>
+        List
+    </li>
+{% endblock %}
