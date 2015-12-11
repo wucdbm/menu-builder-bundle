@@ -4,6 +4,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
 use App\Entity\Booking;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter;
 
@@ -20,17 +21,27 @@ class MenuItemExtension extends \Twig_Extension {
 
     public function getFilters() {
         return array(
-            'menuItemPath' => new \Twig_Filter_Method($this, 'menuItemPath')
+            'menuItemPath' => new \Twig_Filter_Method($this, 'menuItemPath'),
+            'menuItemUrl'  => new \Twig_Filter_Method($this, 'menuItemUrl')
         );
     }
 
     public function getFunctions() {
         return array(
-            'menuItemPath' => new \Twig_Function_Method($this, 'menuItemPath')
+            'menuItemPath' => new \Twig_Function_Method($this, 'menuItemPath'),
+            'menuItemUrl'  => new \Twig_Function_Method($this, 'menuItemUrl')
         );
     }
 
     public function menuItemPath(MenuItem $item) {
+        return $this->url($item, UrlGeneratorInterface::ABSOLUTE_PATH);
+    }
+
+    public function menuItemUrl(MenuItem $item, $type = UrlGeneratorInterface::ABSOLUTE_URL) {
+        return $this->url($item, $type);
+    }
+
+    protected function url(MenuItem $item, $type) {
         $route = $item->getRoute()->getRoute();
         $parameters = [];
         /** @var MenuItemParameter $parameter */
@@ -40,11 +51,7 @@ class MenuItemExtension extends \Twig_Extension {
             $parameters[$key] = $value;
         }
 
-        return $this->router->generate($route, $parameters, Router::ABSOLUTE_PATH);
-    }
-
-    public function getAlias() {
-        return 'wucdbm_menu_builder_menu_item';
+        return $this->router->generate($route, $parameters, $type);
     }
 
     public function getName() {
