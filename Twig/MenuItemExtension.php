@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the MenuBuilderBundle package.
+ *
+ * (c) Martin Kirilov <wucdbm@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
 use App\Entity\Booking;
@@ -21,24 +30,24 @@ class MenuItemExtension extends \Twig_Extension {
 
     public function getFilters() {
         return array(
-            'menuItemPath' => new \Twig_Filter_Method($this, 'menuItemPath'),
-            'menuItemUrl'  => new \Twig_Filter_Method($this, 'menuItemUrl')
+            'menuItemUrl'  => new \Twig_Filter_Method($this, 'menuItemUrl'),
+            'menuItemPath' => new \Twig_Filter_Method($this, 'menuItemPath')
         );
     }
 
     public function getFunctions() {
         return array(
-            'menuItemPath' => new \Twig_Function_Method($this, 'menuItemPath'),
-            'menuItemUrl'  => new \Twig_Function_Method($this, 'menuItemUrl')
+            'menuItemUrl'  => new \Twig_Function_Method($this, 'menuItemUrl'),
+            'menuItemPath' => new \Twig_Function_Method($this, 'menuItemPath')
         );
-    }
-
-    public function menuItemPath(MenuItem $item) {
-        return $this->url($item, UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     public function menuItemUrl(MenuItem $item, $type = UrlGeneratorInterface::ABSOLUTE_URL) {
         return $this->url($item, $type);
+    }
+
+    public function menuItemPath(MenuItem $item) {
+        return $this->url($item, UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     protected function url(MenuItem $item, $type) {

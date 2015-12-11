@@ -74,3 +74,13 @@ Printing a link for a menu is done via the `menuItemPath` twig filter/function, 
     {{ item.name }}
 </a>
 ```
+
+Or for absolute links
+
+```
+<a href="{{ item|menuItemUrl }}">
+    {{ item.name }}
+</a>
+```
+
+You can also use the second (optional) parameter for `menuItemUrl` and set the type of address (one of the `Symfony\Component\Routing\Generator\UrlGeneratorInterface` constants)
