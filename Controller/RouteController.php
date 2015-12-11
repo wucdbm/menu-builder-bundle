@@ -13,6 +13,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Router;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteParameterFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Form\Route\RouteFilterType;
@@ -87,6 +88,51 @@ class RouteController extends BaseController {
         $repo->save($parameter);
 
         return new Response();
+    }
+
+    public function importAction(Request $request) {
+        /** @var $router Router */
+        $router = $this->container->get('router');
+
+        $manager = $this->container->get('wucdbm_menu_builder.manager.routes');
+
+        $referer = $request->headers->get('referer');
+
+        try {
+            $manager->importRouter($router);
+
+            if ($request->isXmlHttpRequest()) {
+                return $this->json([
+                    'success' => true,
+                    'witter'  => [
+                        'title' => 'Success',
+                        'text'  => 'Routes have been successfully imported'
+                    ]
+                ]);
+            }
+
+            if ($referer) {
+                return $this->redirect($referer);
+            }
+
+            return $this->redirectToRoute('wucdbm_menu_builder_dashboard');
+        } catch (\Exception $ex) {
+            if ($request->isXmlHttpRequest()) {
+                return $this->json([
+                    'success' => true,
+                    'witter'  => [
+                        'title' => 'Error',
+                        'text'  => 'There was an error'
+                    ]
+                ]);
+            }
+
+            if ($referer) {
+                return $this->redirect($referer);
+            }
+
+            return $this->redirectToRoute('wucdbm_menu_builder_dashboard');
+        }
     }
 
 }

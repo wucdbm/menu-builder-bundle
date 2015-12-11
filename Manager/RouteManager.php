@@ -71,6 +71,8 @@ class RouteManager extends Manager {
      */
     public function importRoute($routeName, Route $route) {
         $routeEntity = $this->routeRepo->saveIfNotExists($routeName);
+        $routeEntity->setPath($route->getPath());
+        $this->routeRepo->save($routeEntity);
         $compiledRoute = $route->compile();
         $requiredType = $this->routeParameterTypeRepo->findRequiredType();
         foreach ($compiledRoute->getVariables() as $parameter) {

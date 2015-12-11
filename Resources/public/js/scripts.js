@@ -58,6 +58,7 @@ $(function () {
         }).done(function (data) {
             $(that).data('disabled', false);
             $(that).html(html);
+            console.log(data);
             $.ajaxHandler.handle(data, that);
         });
         return false;

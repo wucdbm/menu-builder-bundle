@@ -54,7 +54,7 @@
             $('body').append(html);
         },
         witter: function (data) {
-            $.witter.add(data);
+            $.witter(data);
         },
         mfp: function (html) {
             if ($.magnificPopup.instance) {

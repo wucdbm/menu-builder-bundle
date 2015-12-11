@@ -37,6 +37,11 @@ class Route {
     protected $route;
 
     /**
+     * @ORM\Column(name="path", type="string", nullable=true)
+     */
+    protected $path;
+
+    /**
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     protected $name;
@@ -92,6 +97,20 @@ class Route {
      */
     public function setName($name) {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath() {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path) {
+        $this->path = $path;
     }
 
     /**

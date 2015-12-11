@@ -62,6 +62,12 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li class="{{ 'wucdbm_menu_builder_route_import'|isRoute('active') }}">
+                    <a href="{{ path('wucdbm_menu_builder_route_import') }}" class="ajax-action">
+                        <i class="fa fa-download"></i>
+                        Import
+                    </a>
+                </li>
                 <li class="{{ 'wucdbm_menu_builder_menu_create'|isRoute('active') }}">
                     <a href="{{ path('wucdbm_menu_builder_menu_create') }}">
                         <i class="fa fa-plus"></i>

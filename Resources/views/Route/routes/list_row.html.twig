@@ -5,6 +5,13 @@
     {{ route.route }}
 </td>
 <td>
+    {% if route.path %}
+        {{ route.path }}
+    {% else %}
+        -
+    {% endif %}
+</td>
+<td>
     <a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
        data-url="{{ path('wucdbm_menu_builder_route_name_update', {id: route.id}) }}"
        data-placement="top" title="Set Route Name">

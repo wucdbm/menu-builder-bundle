@@ -5,10 +5,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 - TODO: Take Symfony\Component\Routing\Route::$requirements and save them to the route. When creating a MenuItem, use a select box instead of a text input based on the values. Try to explode('|', $requirements).
 - TODO: Edit links in menus
-- TODO: mysql ondelete cascade for routes, menu items and menus
 - TODO: basic bootstrap template
-- There should be a button to import any new routes.
-- Also save the route pattern
 - The ability to get all the menus at once
 - Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value
 - Error pages for missing items
