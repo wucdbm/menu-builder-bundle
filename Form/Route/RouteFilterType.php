@@ -40,15 +40,12 @@ class RouteFilterType extends AbstractType {
         ));
     }
 
-    /**
-     * @return string
-     */
-    public function getName() {
-        return '';
+    public function getParent() {
+        return 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\BasicFilterType';
     }
 
-    public function getParent() {
-        return 'wucdbm_filter_basic';
+    public function getBlockPrefix() {
+        return '';
     }
 
 }
