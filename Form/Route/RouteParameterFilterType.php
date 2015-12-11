@@ -13,7 +13,6 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Route;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
