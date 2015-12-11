@@ -11,13 +11,13 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Route;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
+use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
-class RouteParameterFilterType extends AbstractType {
+class RouteParameterFilterType extends BaseFilterType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -53,14 +53,6 @@ class RouteParameterFilterType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteParameterFilter'
         ));
-    }
-
-    public function getParent() {
-        return 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\BasicFilterType';
-    }
-
-    public function getBlockPrefix() {
-        return '';
     }
 
 }

@@ -11,11 +11,11 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
-class MenuFilterType extends AbstractType {
+class MenuFilterType extends BaseFilterType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -40,14 +40,6 @@ class MenuFilterType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Filter\Menu\MenuFilter'
         ));
-    }
-
-    public function getParent() {
-        return 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\BasicFilterType';
-    }
-
-    public function getBlockPrefix() {
-        return '';
     }
 
 }
