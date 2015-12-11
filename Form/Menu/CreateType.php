@@ -19,7 +19,7 @@ class CreateType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name', 'text', [
+            ->add('name', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
                 'label' => 'Name',
                 'attr'  => [
                     'placeholder' => 'Name'

@@ -38,6 +38,8 @@ wucdbm_builder:
 
 Assuming that /admin is protected by a firewall, the builder should be secure and inaccessible to random people.
 
+You can create a link to the builder using `{{ path('wucdbm_menu_builder_dashboard') }}`, or embed it into your admin UI via an iframe like so `<iframe src="{{ path('wucdbm_menu_builder_dashboard') }}" style="border: 0; width: 100%; height: 100%;"></iframe>`
+
 The User Interface is pretty self-explanatory. Once you have created a menu, you can access it in your application by calling the `getMenu` 
 twig function, which will return `Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu` or `null`. A menu contains `Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem`s.
 Menu items can be a parent of another MenuItem and have children. A good idea when listing the top-level menu is to only list items whose parent is null:

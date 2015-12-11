@@ -23,10 +23,10 @@ class RouteFilterType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name', 'wucdbm_filter_text', [
+            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
                 'placeholder' => 'Name'
             ])
-            ->add('route', 'wucdbm_filter_text', [
+            ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
                 'placeholder' => 'Route'
             ]);
     }

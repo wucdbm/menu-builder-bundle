@@ -30,10 +30,10 @@ class MenuItemParameterType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $item = $this->item;
         $builder
-            ->add('value', 'text', [
+            ->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
                 'label' => 'Value'
             ])
-            ->add('parameter', 'entity', [
+            ->add('parameter', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'         => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter',
                 'property'      => 'parameter',
                 'query_builder' => function (RouteParameterRepository $repository) use ($item) {

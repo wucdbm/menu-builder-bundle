@@ -27,7 +27,7 @@ class MenuItemType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name', 'text', [
+            ->add('name', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
                 'label' => 'Name'
             ]);
 
@@ -90,7 +90,7 @@ class MenuItemType extends AbstractType {
             $form = $event->getForm();
             /** @var MenuItem $item */
             $item = $event->getData();
-            $form->add('parameters', 'collection', [
+            $form->add('parameters', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', [
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'type'         => new MenuItemParameterType($item),

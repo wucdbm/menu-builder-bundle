@@ -25,13 +25,13 @@ class RouteParameterFilterType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('parameter', 'wucdbm_filter_text', [
+            ->add('parameter', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
                 'placeholder' => 'Parameter'
             ])
-            ->add('name', 'wucdbm_filter_text', [
+            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
                 'placeholder' => 'Name'
             ])
-            ->add('route', 'wucdbm_filter_entity', [
+            ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
                 'class'         => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
                 'query_builder' => function (RouteRepository $repository) {
                     return $repository->getRoutesWithParametersQueryBuilder();
@@ -39,7 +39,7 @@ class RouteParameterFilterType extends AbstractType {
                 'property'      => 'route',
                 'placeholder'   => 'Route'
             ])
-            ->add('type', 'wucdbm_filter_entity', [
+            ->add('type', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
                 'class'       => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType',
                 'property'    => 'name',
                 'placeholder' => 'Type'
