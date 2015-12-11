@@ -37,7 +37,7 @@ class MenuItemParameter {
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", inversedBy="parameters")
-     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     protected $item;
 

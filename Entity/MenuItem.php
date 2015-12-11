@@ -34,13 +34,13 @@ class MenuItem {
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu", inversedBy="items")
-     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     protected $menu;
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Route", inversedBy="items")
-     * @ORM\JoinColumn(name="route_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="route_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     protected $route;
 
@@ -51,7 +51,7 @@ class MenuItem {
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $parent;
 

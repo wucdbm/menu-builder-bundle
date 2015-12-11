@@ -43,7 +43,7 @@ class RouteParameter {
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Route", inversedBy="parameters")
-     * @ORM\JoinColumn(name="route_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="route_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     protected $route;
 
