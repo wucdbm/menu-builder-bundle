@@ -3,7 +3,6 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 ## Upcoming / TODO
 
-- TODO: Make it possible to run the import routes after composer update/install, more or less like assets:install runs
 - TODO: Take Symfony\Component\Routing\Route::$requirements and save them to the route. When creating a MenuItem, use a select box instead of a text input based on the values. Try to explode('|', $requirements).
 - TODO: Add filter for absolute urls
 - TODO: Edit links in menus
@@ -28,6 +27,8 @@ Execute `app/console doctrine:schema:update --dump-sql` and after verifying what
 Alternatively, use doctrine migrations via the DoctrineMigrations bundle.
 
 Execute `app/console wucdbm_menu_builder:import_routes` to import your current routes from your symfony application into the tables created by the bundle.
+
+Alternatively, add `Wucdbm\\Bundle\\MenuBuilderBundle\\Composer\\ScriptHandler::importRoutes` to your composer.json's `post-install-cmd` or `post-update-cmd` command list and this will be executed after every install or update
 
 Once this has been done, you can start using the bundle. Simply register it in your routing.yml like so:
 
