@@ -12,7 +12,7 @@
 namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Route;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
 class RouteFilterType extends BaseFilterType {
@@ -32,9 +32,9 @@ class RouteFilterType extends BaseFilterType {
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteFilter'
         ));

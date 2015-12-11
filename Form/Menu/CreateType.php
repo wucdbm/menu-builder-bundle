@@ -13,7 +13,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateType extends AbstractType {
 
@@ -31,7 +31,7 @@ class CreateType extends AbstractType {
         return 'wucdbm_menu_builder_menu_edit';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu'
         ]);

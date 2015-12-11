@@ -15,7 +15,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
@@ -117,7 +117,7 @@ class MenuItemType extends AbstractType {
         // TODO: Validate: uniqueness - for each parameter there must be only one value
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem'
         ]);
