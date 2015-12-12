@@ -17,6 +17,9 @@ use Wucdbm\Bundle\WucdbmBundle\Filter\AbstractFilter;
 
 class RouteParameterFilter extends AbstractFilter {
 
+    const IS_NAMED_TRUE = 1,
+        IS_NAMED_FALSE = 2;
+
     /** @var  string */
     protected $parameter;
 
@@ -28,6 +31,23 @@ class RouteParameterFilter extends AbstractFilter {
 
     /** @var  RouteParameterType */
     protected $type;
+
+    /** @var  integer */
+    protected $isNamed;
+
+    /**
+     * @return int
+     */
+    public function getIsNamed() {
+        return $this->isNamed;
+    }
+
+    /**
+     * @param int $isNamed
+     */
+    public function setIsNamed($isNamed) {
+        $this->isNamed = $isNamed;
+    }
 
     /**
      * @return string

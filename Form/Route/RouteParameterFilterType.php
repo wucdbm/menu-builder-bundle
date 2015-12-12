@@ -13,6 +13,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Route;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteParameterFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
@@ -24,6 +25,13 @@ class RouteParameterFilterType extends BaseFilterType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+            ->add('isNamed', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\ChoiceFilterType', [
+                'placeholder' => 'Is named filter',
+                'choices'     => [
+                    RouteParameterFilter::IS_NAMED_FALSE => 'Only NOT named',
+                    RouteParameterFilter::IS_NAMED_TRUE  => 'Only named'
+                ]
+            ])
             ->add('parameter', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
                 'placeholder' => 'Parameter'
             ])

@@ -18,52 +18,55 @@ class RouteFilter extends AbstractFilter {
     const IS_NAMED_TRUE = 1,
         IS_NAMED_FALSE = 2;
 
+    /** @var  string */
     protected $name;
 
+    /** @var  string */
     protected $route;
 
+    /** @var  integer */
     protected $isNamed;
 
     /**
-     * @return mixed
-     */
-    public function getIsNamed() {
-        return $this->isNamed;
-    }
-
-    /**
-     * @param mixed $isNamed
-     */
-    public function setIsNamed($isNamed) {
-        $this->isNamed = $isNamed;
-    }
-
-    /**
-     * @return mixed
+     * @return string
      */
     public function getName() {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name) {
         $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRoute() {
         return $this->route;
     }
 
     /**
-     * @param mixed $route
+     * @param string $route
      */
     public function setRoute($route) {
         $this->route = $route;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsNamed() {
+        return $this->isNamed;
+    }
+
+    /**
+     * @param int $isNamed
+     */
+    public function setIsNamed($isNamed) {
+        $this->isNamed = $isNamed;
     }
 
 }

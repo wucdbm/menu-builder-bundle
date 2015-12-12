@@ -32,6 +32,17 @@ class RouteParameterRepository extends AbstractRepository {
                 ->setParameter('parameter', '%' . $filter->getParameter() . '%');
         }
 
+        if ($filter->getIsNamed()) {
+            switch ($filter->getIsNamed()) {
+                case RouteParameterFilter::IS_NAMED_TRUE:
+                    $builder->andWhere('p.name IS NOT NULL');
+                    break;
+                case RouteParameterFilter::IS_NAMED_FALSE:
+                    $builder->andWhere('p.name IS NULL');
+                    break;
+            }
+        }
+
         $route = $filter->getRoute();
         if ($route instanceof Route) {
             $builder->andWhere('r.id = :routeId')
