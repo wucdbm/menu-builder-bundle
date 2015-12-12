@@ -5,8 +5,9 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 - Feature: Take Symfony\Component\Routing\Route::$requirements and save them to the route. When creating a MenuItem, use a select box instead of a text input based on the values. Try to explode('|', $requirements).
 - Feature: Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value. Save the default value fo each parameter in its RouteParameter entity and if the field is blank, use the default value. that is, if the MenuItemParameter value is empty, use the RouteParameter default value
-- TODO: Edit links in menus
-- TODO: basic bootstrap template
+- Feature: Edit links in menus
+- Feature: Order the menu with something like jQuery UI draggable
+- Feature: Basic Bootstrap header menu template with a basic preview page, the page should have the previewed menu of choice plus instructions on it how on how to extract the code from the bundle and use it as a starting point. Also make use of the |isRoute(route) filter for current items etc.
 - TODO: Error pages for missing items - instead of type hinting the doctrine entities in the controllers, take their IDs and show an error page if any entity was not found.
 
 ## Usage
