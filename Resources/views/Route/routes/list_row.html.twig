@@ -3,6 +3,10 @@
 </td>
 <td>
     {{ route.route }}
+    <br>
+    <a href="{{ path('wucdbm_menu_builder_route_parameter_list', {route: route.id}) }}">
+        Parameters
+    </a>
 </td>
 <td>
     {% if route.path %}
@@ -24,9 +28,13 @@
             {% for param in route.parameters %}
                 <li>
                     <code>{{ param.parameter }}</code>
-                    {% if param.name %}
-                        ({{ param.name }})
-                    {% endif %}
+                    {#{% if param.name %}#}
+                        (<a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
+                            data-url="{{ path('wucdbm_menu_builder_route_parameter_name_update', {id: param.id}) }}"
+                            data-placement="top" title="Set Parameter Name">
+                            {{ param.name }}
+                        </a>)
+                    {#{% endif %}#}
                 </li>
             {% endfor %}
         </ul>

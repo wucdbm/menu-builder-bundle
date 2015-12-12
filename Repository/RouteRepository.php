@@ -30,6 +30,17 @@ class RouteRepository extends AbstractRepository {
                 ->setParameter('route', '%' . $filter->getRoute() . '%');
         }
 
+        if ($filter->getIsNamed()) {
+            switch ($filter->getIsNamed()) {
+                case RouteFilter::IS_NAMED_TRUE:
+                    $builder->andWhere('r.name IS NOT NULL');
+                    break;
+                case RouteFilter::IS_NAMED_FALSE:
+                    $builder->andWhere('r.name IS NULL');
+                    break;
+            }
+        }
+
         return $this->returnFilteredEntities($builder, $filter, 'r.id');
     }
 

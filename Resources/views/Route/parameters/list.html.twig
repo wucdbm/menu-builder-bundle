@@ -42,10 +42,18 @@
 
 {% endblock %}
 
+{% block scripts %}
+
+
+
+{% endblock %}
+
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        Parameters
+        <a href="{{ path('wucdbm_menu_builder_route_parameter_list') }}">
+            Parameters
+        </a>
     </li>
     <li>
         List

@@ -23,12 +23,12 @@ class RouteParameterRepository extends AbstractRepository {
         $builder = $this->getQueryBuilder();
 
         if ($filter->getName()) {
-            $builder->andWhere('p.name = :name')
+            $builder->andWhere('p.name LIKE :name')
                 ->setParameter('name', '%' . $filter->getName() . '%');
         }
 
         if ($filter->getParameter()) {
-            $builder->andWhere('p.parameter = :parameter')
+            $builder->andWhere('p.parameter LIKE :parameter')
                 ->setParameter('parameter', '%' . $filter->getParameter() . '%');
         }
 

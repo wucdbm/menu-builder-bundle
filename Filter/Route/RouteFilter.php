@@ -15,9 +15,28 @@ use Wucdbm\Bundle\WucdbmBundle\Filter\AbstractFilter;
 
 class RouteFilter extends AbstractFilter {
 
+    const IS_NAMED_TRUE = 1,
+        IS_NAMED_FALSE = 2;
+
     protected $name;
 
     protected $route;
+
+    protected $isNamed;
+
+    /**
+     * @return mixed
+     */
+    public function getIsNamed() {
+        return $this->isNamed;
+    }
+
+    /**
+     * @param mixed $isNamed
+     */
+    public function setIsNamed($isNamed) {
+        $this->isNamed = $isNamed;
+    }
 
     /**
      * @return mixed
