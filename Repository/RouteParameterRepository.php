@@ -84,7 +84,7 @@ class RouteParameterRepository extends AbstractRepository {
         $parameterEntity->setType($type);
         $this->save($parameterEntity);
 
-        return $route;
+        return $parameterEntity;
     }
 
     public function getParametersByRouteQueryBuilder(Route $route) {

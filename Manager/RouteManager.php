@@ -77,7 +77,6 @@ class RouteManager extends Manager {
         $requiredType = $this->routeParameterTypeRepo->findRequiredType();
         foreach ($compiledRoute->getVariables() as $parameter) {
             $parameterEntity = $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
-            $parameterEntity->setRequirement(null);
             $parameterEntity->setRequirement($route->getRequirement($parameter));
             $parameterEntity->setDefaultValue($route->getDefault($parameter));
             $this->routeParameterRepo->save($parameterEntity);
