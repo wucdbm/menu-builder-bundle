@@ -1,23 +1,17 @@
 <div class="row">
-    <div class="col-sm-3">
-        <h4>Actions</h4>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <a href="{{ path('wucdbm_menu_builder_menu_items_add', {id: menu.id}) }}">
-                    <i class="fa fa-plus"></i>
-                    Add Top-level Item
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="{{ path('wucdbm_menu_builder_menu_remove', {id: menu.id}) }}" data-confirm="Should Menu '{{ menu.name }}' be removed?">
-                    <i class="fa fa-times"></i>
-                    Remove menu
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-sm-9">
-        <h4>Links in <code>{{ menu.name }}</code></h4>
+    <div class="col-sm-12">
+        <div class="button-group pull-right">
+            <a href="{{ path('wucdbm_menu_builder_menu_items_add', {id: menu.id}) }}" class="btn btn-link">
+                <i class="fa fa-plus"></i>
+                Add Top-level Item
+            </a>
+            <a href="{{ path('wucdbm_menu_builder_menu_remove', {id: menu.id}) }}" class="btn btn-link"
+               data-confirm="Should Menu '{{ menu.name }}' be removed?">
+                <i class="fa fa-times"></i>
+                Remove menu
+            </a>
+        </div>
+        <div class="clearfix"></div>
         <ul class="list-group">
             {% for item in menu.items if item.parent is null %}
                 <li class="list-group-item">
