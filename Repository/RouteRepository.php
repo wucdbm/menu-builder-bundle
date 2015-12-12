@@ -21,12 +21,12 @@ class RouteRepository extends AbstractRepository {
         $builder = $this->getQueryBuilder();
 
         if ($filter->getName()) {
-            $builder->andWhere('r.name = :name')
+            $builder->andWhere('r.name LIKE :name')
                 ->setParameter('name', '%' . $filter->getName() . '%');
         }
 
         if ($filter->getRoute()) {
-            $builder->andWhere('r.route = :route')
+            $builder->andWhere('r.route LIKE :route')
                 ->setParameter('route', '%' . $filter->getRoute() . '%');
         }
 
