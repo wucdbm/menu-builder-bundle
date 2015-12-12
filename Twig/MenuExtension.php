@@ -34,7 +34,8 @@ class MenuExtension extends \Twig_Extension {
 
     public function getFunctions() {
         return [
-            'getMenu' => new \Twig_Function_Method($this, 'getMenu')
+            'getMenu' => new \Twig_Function_Method($this, 'getMenu'),
+            'getMenus' => new \Twig_Function_Method($this, 'getMenus')
         ];
     }
 
