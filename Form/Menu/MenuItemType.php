@@ -91,8 +91,9 @@ class MenuItemType extends AbstractType {
             /** @var MenuItem $item */
             $item = $event->getData();
             $form->add('parameters', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', [
-                'allow_add'    => true,
-                'allow_delete' => true,
+                // TODO: Make it possible to add custom parameters with custom names
+//                'allow_add'    => true,
+//                'allow_delete' => true,
                 'type'         => new MenuItemParameterType($item),
                 'constraints'  => [
                     new Callback([
@@ -113,8 +114,6 @@ class MenuItemType extends AbstractType {
                 $menuParameter->setItem($item);
             }
         });
-
-        // TODO: Validate: uniqueness - for each parameter there must be only one value
     }
 
     public function configureOptions(OptionsResolver $resolver) {

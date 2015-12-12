@@ -42,6 +42,16 @@ class RouteParameter {
     protected $name;
 
     /**
+     * @ORM\Column(name="requirement", type="string", nullable=true)
+     */
+    protected $requirement;
+
+    /**
+     * @ORM\Column(name="default_value", type="string", nullable=true)
+     */
+    protected $defaultValue;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Route", inversedBy="parameters")
      * @ORM\JoinColumn(name="route_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
@@ -98,6 +108,34 @@ class RouteParameter {
      */
     public function setName($name) {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequirement() {
+        return $this->requirement;
+    }
+
+    /**
+     * @param mixed $requirement
+     */
+    public function setRequirement($requirement) {
+        $this->requirement = $requirement;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultValue() {
+        return $this->defaultValue;
+    }
+
+    /**
+     * @param mixed $defaultValue
+     */
+    public function setDefaultValue($defaultValue) {
+        $this->defaultValue = $defaultValue;
     }
 
     /**

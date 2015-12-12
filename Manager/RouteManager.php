@@ -76,8 +76,25 @@ class RouteManager extends Manager {
         $compiledRoute = $route->compile();
         $requiredType = $this->routeParameterTypeRepo->findRequiredType();
         foreach ($compiledRoute->getVariables() as $parameter) {
-            $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
+            $parameterEntity = $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
+            $parameterEntity->setRequirement(null);
+            $parameterEntity->setRequirement($route->getRequirement($parameter));
+            $parameterEntity->setDefaultValue($route->getDefault($parameter));
+            $this->routeParameterRepo->save($parameterEntity);
         }
+        // TODO: This, once the bundle is Symfony 3.0 ready
+        // if parameter is _scheme or _method - get reqs with those methods? Should we even care?
+        // Maybe test this on a project that actually makes use of hosts, schemes and methods requirements for its routes
+        // From symfony code:
+//        if ('_scheme' === $key) {
+//            @trigger_error('The "_scheme" requirement is deprecated since version 2.2 and will be removed in 3.0. Use the setSchemes() method instead.', E_USER_DEPRECATED);
+//
+//            $this->setSchemes(explode('|', $regex));
+//        } elseif ('_method' === $key) {
+//            @trigger_error('The "_method" requirement is deprecated since version 2.2 and will be removed in 3.0. Use the setMethods() method instead.', E_USER_DEPRECATED);
+//
+//            $this->setMethods(explode('|', $regex));
+//        }
     }
 
 }

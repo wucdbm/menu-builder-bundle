@@ -26,13 +26,21 @@
 
 {% endblock %}
 
-{#{% block scripts %}#}
+{% block scripts %}
+
+    {% for field in form.parameters %}
+        {% if field.value.vars.choices is defined %}
+            $('#{{ field.value.vars.id }}').select2({
+                tags: true
+            });
+        {% endif %}
+    {% endfor %}
 
     {#{% import '@WucdbmMenuBuilder/_shared/collection_macro.html.twig' as macro %}#}
 
     {#{{ macro.collection(form.parameters) }}#}
 
-{#{% endblock %}#}
+{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
