@@ -31,7 +31,13 @@
     {% for field in form.parameters %}
         {% if field.value.vars.choices is defined %}
             $('#{{ field.value.vars.id }}').select2({
-                tags: true
+                tags: true,
+                createTag: function(tag) {
+                    return {
+                        id: tag.term,
+                        text: 'New: ' + tag.term
+                    };
+                }
             });
         {% endif %}
     {% endfor %}
