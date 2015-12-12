@@ -41,4 +41,11 @@ class MenuManager extends Manager {
         return $this->menuRepository->findOneById($id);
     }
 
+    /**
+     * @return Menu[]
+     */
+    public function findAll() {
+        return $this->menuRepository->findAll();
+    }
+
 }

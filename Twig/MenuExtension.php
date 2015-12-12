@@ -12,6 +12,7 @@
 namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
 use App\Entity\Booking;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
 use Wucdbm\Bundle\MenuBuilderBundle\Manager\MenuManager;
 
 class MenuExtension extends \Twig_Extension {
@@ -37,8 +38,19 @@ class MenuExtension extends \Twig_Extension {
         ];
     }
 
+    /**
+     * @param $id
+     * @return Menu|null
+     */
     public function getMenu($id) {
         return $this->manager->findOneById($id);
+    }
+
+    /**
+     * @return Menu[]
+     */
+    public function getMenus() {
+        return $this->manager->findAll();
     }
 
     public function getAlias() {

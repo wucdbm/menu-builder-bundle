@@ -71,12 +71,26 @@ class MenuRepository extends AbstractRepository {
         return $query->getOneOrNullResult();
     }
 
+    /**
+     * @return Menu[]
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAll() {
+        $builder = $this->getQueryBuilder();
+        $query = $builder->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
     public function getQueryBuilder() {
         return $this->createQueryBuilder('m')
-            ->addSelect('i, p, r')
+            ->addSelect('i, itemParameters, itemChildren, itemParent, itemMenu, itemRoute')
             ->leftJoin('m.items', 'i', null, null, 'i.id')
-            ->leftJoin('i.parameters', 'p')
-            ->leftJoin('i.route', 'r');
+            ->leftJoin('i.parameters', 'itemParameters')
+            ->leftJoin('i.children', 'itemChildren')
+            ->leftJoin('i.parent', 'itemParent')
+            ->leftJoin('i.menu', 'itemMenu')
+            ->leftJoin('i.route', 'itemRoute');
     }
 
     public function save(Menu $menu) {
