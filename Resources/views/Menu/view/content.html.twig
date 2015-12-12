@@ -21,7 +21,8 @@
                         {{ item.name }}
                     </a>
                     <div class="btn-group pull-right">
-                        <a href="{{ path('wucdbm_menu_builder_menu_items_remove', {id: menu.id, itemId: item.id}) }}" class="btn btn-xs btn-link ajax-action">
+                        <a href="{{ path('wucdbm_menu_builder_menu_items_remove', {id: menu.id, itemId: item.id}) }}" class="btn btn-xs btn-link"
+                           data-confirm="Should link '{{ item.name }}' be removed?">
                             <i class="fa fa-times"></i>
                             Remove
                         </a>
