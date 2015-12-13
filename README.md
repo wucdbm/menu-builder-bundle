@@ -40,7 +40,11 @@ The User Interface is pretty self-explanatory. Once you have created a menu, you
 twig function, which will return `Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu` or `null`. A menu contains `Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem`s.
 Menu items can be a parent of another MenuItem and have children. A good idea when listing the top-level menu is to only list items whose parent is null:
 
-New: You can use the `menuTopLevelItems` filter to get all top-level items: `{% for item in getMenu(1)|menuTopLevelItems %}`
+```
+{# New: You can use the `menuTopLevelItems` filter to get all top-level items: #}
+{% for item in getMenu(1)|menuTopLevelItems %}
+```
+
 
 ```
 {% if getMenu(1) %} {# You could also use any constant with the constant() function or any other way of referencing the menu #}
