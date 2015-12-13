@@ -23,7 +23,7 @@
             {% if item.children|length %}
                 <div class="clearfix"></div>
                 <br>
-                {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: item.children} %}
+                {% include _self with {items: item.children} %}
             {% endif %}
         </li>
     {% endfor %}

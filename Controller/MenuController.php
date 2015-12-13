@@ -51,7 +51,7 @@ class MenuController extends BaseController {
             $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
             $manager->save($menu);
 
-            return $this->redirectToRoute('wucdbm_menu_builder_menu_view', [
+            return $this->redirectToRoute('wucdbm_menu_builder_menu_edit', [
                 'id' => $menu->getId()
             ]);
         }
@@ -64,20 +64,28 @@ class MenuController extends BaseController {
         return $this->render('@WucdbmMenuBuilder/Menu/create.html.twig', $data);
     }
 
-    public function viewAction(Menu $menu) {
+    public function editAction(Menu $menu) {
         $data = [
             'menu' => $menu
         ];
 
-        return $this->render('@WucdbmMenuBuilder/Menu/view.html.twig', $data);
+        return $this->render('@WucdbmMenuBuilder/Menu/edit.html.twig', $data);
     }
 
-    public function refreshAction(Menu $menu) {
+    public function refreshEditAction(Menu $menu) {
         $data = [
             'menu' => $menu
         ];
 
         return $this->render('@WucdbmMenuBuilder/Menu/view/content.html.twig', $data);
+    }
+
+    public function previewAction(Menu $menu) {
+        $data = [
+            'menu' => $menu
+        ];
+
+        return $this->render('@WucdbmMenuBuilder/Menu/preview.html.twig', $data);
     }
 
     public function updateNameAction($id, Request $request) {
@@ -126,7 +134,7 @@ class MenuController extends BaseController {
             ]);
         }
 
-        return $this->redirectToRoute('wucdbm_menu_builder_menu_view', [
+        return $this->redirectToRoute('wucdbm_menu_builder_menu_edit', [
             'id' => $menu->getId()
         ]);
     }
@@ -237,7 +245,7 @@ class MenuController extends BaseController {
             $menuItemRepository = $this->container->get('wucdbm_menu_builder.repo.menus_items');
             $menuItemRepository->save($item);
 
-            return $this->redirectToRoute('wucdbm_menu_builder_menu_view', [
+            return $this->redirectToRoute('wucdbm_menu_builder_menu_edit', [
                 'id' => $item->getMenu()->getId()
             ]);
         }

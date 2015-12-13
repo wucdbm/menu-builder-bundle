@@ -6,13 +6,13 @@ wucdbm_menu_builder_menu_create:
     path:        /create
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:create }
 
-wucdbm_menu_builder_menu_view_refresh:
-    path:        /{id}/view/refresh
-    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:refresh }
+wucdbm_menu_builder_menu_edit_refresh:
+    path:        /{id}/edit/refresh
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:refreshEdit }
 
-wucdbm_menu_builder_menu_view:
-    path:        /{id}/view
-    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:view }
+wucdbm_menu_builder_menu_edit:
+    path:        /{id}/edit
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:edit }
 
 wucdbm_menu_builder_menu_name_update:
     path:        /{id}/update/name
@@ -21,6 +21,10 @@ wucdbm_menu_builder_menu_name_update:
 wucdbm_menu_builder_menu_remove:
     path:        /{id}/remove
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:remove }
+
+wucdbm_menu_builder_menu_preview:
+    path:        /{id}/preview
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:preview }
 
 wucdbm_menu_builder_menu_items_add_by_route:
     path:        /{id}/items/add/{routeId}

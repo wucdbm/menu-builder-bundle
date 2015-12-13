@@ -13,6 +13,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
 use App\Entity\Booking;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\MenuBuilderBundle\Manager\MenuManager;
 
 class MenuExtension extends \Twig_Extension {
@@ -28,15 +29,32 @@ class MenuExtension extends \Twig_Extension {
 
     public function getFilters() {
         return [
-            'getMenu' => new \Twig_Filter_Method($this, 'getMenu')
+            'getMenu'           => new \Twig_Filter_Method($this, 'getMenu'),
+            'menuTopLevelItems' => new \Twig_Filter_Method($this, 'menuTopLevelItems')
         ];
     }
 
     public function getFunctions() {
         return [
-            'getMenu' => new \Twig_Function_Method($this, 'getMenu'),
+            'getMenu'  => new \Twig_Function_Method($this, 'getMenu'),
             'getMenus' => new \Twig_Function_Method($this, 'getMenus')
         ];
+    }
+
+    /**
+     * @param Menu $menu
+     * @return array
+     */
+    public function menuTopLevelItems(Menu $menu) {
+        $items = [];
+        /** @var MenuItem $item */
+        foreach ($menu->getItems() as $item) {
+            if (!$item->getParent()) {
+                $items[] = $item;
+            }
+        }
+
+        return $items;
     }
 
     /**

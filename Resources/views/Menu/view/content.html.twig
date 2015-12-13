@@ -10,38 +10,12 @@
                 <i class="fa fa-times"></i>
                 Remove menu
             </a>
+            <a href="{{ path('wucdbm_menu_builder_menu_preview', {id: menu.id}) }}" class="btn btn-link">
+                <i class="fa fa-search"></i>
+                Preview
+            </a>
         </div>
         <div class="clearfix"></div>
-        <ul class="list-group">
-            {% for item in menu.items if item.parent is null %}
-                <li class="list-group-item">
-                    <a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
-                       data-url="{{ path('wucdbm_menu_builder_menu_item_name_update', {id: item.id}) }}"
-                       data-placement="top" title="Set Item Name">
-                        {{ item.name }}
-                    </a>
-                    <div class="btn-group pull-right">
-                        <a href="{{ path('wucdbm_menu_builder_menu_items_remove', {id: menu.id, itemId: item.id}) }}" class="btn btn-xs btn-link"
-                           data-confirm="Should link '{{ item.name }}' be removed?">
-                            <i class="fa fa-times"></i>
-                            Remove
-                        </a>
-                        <a href="{{ path('wucdbm_menu_builder_menu_items_add_sub', {id: menu.id, itemId: item.id}) }}" class="btn btn-xs btn-link">
-                            <i class="fa fa-plus"></i>
-                            Add
-                        </a>
-                        <a href="{{ item|menuItemPath }}" target="_blank">
-                            <i class="fa fa-anchor"></i>
-                            Visit
-                        </a>
-                    </div>
-                    {% if item.children|length %}
-                        <div class="clearfix"></div>
-                        <br>
-                        {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: item.children} %}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
+        {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: menu|menuTopLevelItems} %}
     </div>
 </div>
