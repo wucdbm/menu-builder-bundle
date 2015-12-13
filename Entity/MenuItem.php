@@ -150,8 +150,6 @@ class MenuItem {
         return $this->parameters;
     }
 
-    // TODO:
-
     /**
      * @param \Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $parent
      *

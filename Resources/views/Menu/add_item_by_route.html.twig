@@ -17,7 +17,7 @@
             {% endif %}
             <div class="form-group">
                 <button type="submit" class="btn btn-default">
-                    Add Item
+                    Add / Edit Item
                 </button>
             </div>
             {{ form_end(form) }}
@@ -51,10 +51,16 @@
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        <code>{{ menu.name }}</code>
+        <a href="{{ path('wucdbm_menu_builder_menu_edit', {id: menu.id}) }}">
+            {{ menu.name }}
+        </a>
     </li>
     <li>
-        Add an Item
+        {% if item.id %}
+            Edit
+        {% else %}
+            Add
+        {% endif %}
     </li>
     {% if item.parent %}
         <li>

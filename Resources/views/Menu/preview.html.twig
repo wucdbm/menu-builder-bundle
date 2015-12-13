@@ -53,16 +53,16 @@
             <br>
             <textarea class="form-control" rows="12">{% raw %}
                     <div class="dropdown">
-                    <a role="button" data-toggle="dropdown" class="btn btn-primary" href="javascript:;">
-                        Some Dropdown
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                        {% for item in menu|menuTopLevelItems %}
-                        {% include '@WucdbmMenuBuilder/Menu/preview/dropdown.html.twig' %}
-                        {% endfor %}
-                    </ul>
-                </div>
+                        <a role="button" data-toggle="dropdown" class="btn btn-primary" href="javascript:;">
+                            Some Dropdown
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                            {% for item in menu|menuTopLevelItems %}
+                                {% include '@WucdbmMenuBuilder/Menu/preview/dropdown.html.twig' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
                 {% endraw %}</textarea>
             <style type="text/css" scoped="scoped">
                 .dropdown-submenu {

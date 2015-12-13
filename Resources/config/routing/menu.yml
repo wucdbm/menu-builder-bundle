@@ -34,6 +34,10 @@ wucdbm_menu_builder_menu_item_name_update:
     path:        /items/{id}/update/name
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:updateItemName }
 
+wucdbm_menu_builder_menu_item_edit:
+    path:        /items/{id}/edit
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:editItem }
+
 wucdbm_menu_builder_menu_items_add:
     path:        /{id}/items/add
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:addItem }

@@ -15,7 +15,11 @@
                     <i class="fa fa-plus"></i>
                     Add
                 </a>
-                <a href="{{ item|menuItemPath }}" target="_blank">
+                <a href="{{ path('wucdbm_menu_builder_menu_item_edit', {id: item.id}) }}" class="btn btn-xs btn-link">
+                    <i class="fa fa-plus"></i>
+                    Edit
+                </a>
+                <a href="{{ item|menuItemPath }}" class="btn btn-xs btn-link" target="_blank">
                     <i class="fa fa-anchor"></i>
                     Visit
                 </a>

@@ -196,7 +196,7 @@ class MenuController extends BaseController {
         $item->setMenu($menu);
         $menu->addItem($item);
 
-        return $this->addItem($item, $request);
+        return $this->editItemAction($item, $request);
     }
 
     public function addSubItemAction(Menu $menu, $itemId, Request $request) {
@@ -233,10 +233,10 @@ class MenuController extends BaseController {
         $parent->addChild($item);
         $menu->addItem($item);
 
-        return $this->addItem($item, $request);
+        return $this->editItemAction($item, $request);
     }
 
-    protected function addItem(MenuItem $item, Request $request) {
+    public function editItemAction(MenuItem $item, Request $request) {
         $form = $this->createForm(new MenuItemType(), $item);
 
         $form->handleRequest($request);

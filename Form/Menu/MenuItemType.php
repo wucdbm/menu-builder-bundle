@@ -36,8 +36,19 @@ class MenuItemType extends AbstractType {
             $item = $event->getData();
             $route = $item->getRoute();
 
+            $routeParameters = [];
+            /** @var MenuItemParameter $parameter */
+            foreach ($item->getParameters() as $parameter) {
+                $routeParameter = $parameter->getParameter();
+                $routeParameters[$routeParameter->getId()] = $routeParameter;
+            }
+
             /** @var RouteParameter $parameter */
             foreach ($route->getParameters() as $parameter) {
+                if (isset($routeParameters[$parameter->getId()])) {
+                    continue;
+                }
+                // Add missing required parameters
                 if ($parameter->getType()->getId() == RouteParameterType::ID_REQUIRED) {
                     $menuParameter = new MenuItemParameter();
                     $menuParameter->setParameter($parameter);
@@ -57,7 +68,7 @@ class MenuItemType extends AbstractType {
                     $parameter = $menuParameter->getParameter();
                     $key = $item->getId() . '_' . $parameter->getId();
                     if (isset($duplicates[$key])) {
-                        $context->buildViolation('A duplicate entry for Parameter ' . $parameter->getParameter() . ' was found')->addViolation();
+                        $context->buildViolation('A duplicate entry for Parameter "' . $parameter->getParameter() . '" was found')->addViolation();
                     }
                     $duplicates[$key] = true;
                 }
@@ -83,7 +94,7 @@ class MenuItemType extends AbstractType {
 
                 /** @var RouteParameter $parameter */
                 foreach ($required as $parameter) {
-                    $context->buildViolation('The Required Parameter ' . $parameter->getParameter() . ' is missing')->addViolation();
+                    $context->buildViolation('The Required Parameter "' . $parameter->getParameter() . '" is missing')->addViolation();
                 }
             };
 
@@ -94,8 +105,8 @@ class MenuItemType extends AbstractType {
                 // TODO: Make it possible to add custom parameters with custom names
 //                'allow_add'    => true,
 //                'allow_delete' => true,
-                'type'         => new MenuItemParameterType($item),
-                'constraints'  => [
+                'type'        => new MenuItemParameterType($item),
+                'constraints' => [
                     new Callback([
                         'callback' => $duplicateValidator
                     ]),
