@@ -31,9 +31,14 @@ class MenuItemParameter {
     protected $id;
 
     /**
-     * @ORM\Column(name="value", type="string", nullable=false)
+     * @ORM\Column(name="value", type="string", nullable=true)
      */
     protected $value;
+
+    /**
+     * @ORM\Column(name="use_default_value", type="boolean", nullable=false)
+     */
+    protected $useDefaultValue = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", inversedBy="parameters")
@@ -66,6 +71,20 @@ class MenuItemParameter {
      */
     public function setValue($value) {
         $this->value = $value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUseDefaultValue() {
+        return $this->useDefaultValue;
+    }
+
+    /**
+     * @param mixed $useDefaultValue
+     */
+    public function setUseDefaultValue($useDefaultValue) {
+        $this->useDefaultValue = $useDefaultValue;
     }
 
     /**

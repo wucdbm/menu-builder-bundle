@@ -43,10 +43,28 @@ class MenuItemParameterType extends AbstractType {
             $data = $form->getData();
             $requirement = $data->getParameter()->getRequirement();
             $choices = $this->getChoices($requirement);
-            if ($choices) {
+            if ($choices && $rawData['value']) {
+                // if a new choice was added via the select2 box
+                // add the value choice field anew with the new choice
                 $choices[] = $rawData['value'];
                 $form->remove('value');
-                $this->addValueChoiceField($form, $choices, $requirement);
+                $this->addValueChoiceField($form, $choices, $data->getParameter());
+            }
+        });
+
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($item) {
+            /** @var MenuItemParameter $data */
+            $data = $event->getData();
+
+            $parameter = $data->getParameter();
+
+            if (!$data->getValue() && $parameter->getDefaultValue()) {
+                // if empty value was submitted and the RouteParameter has a default value
+                // save a copy of the default value to the MenuItemParameter
+                // and configure it to check the RouteParameter for default value first
+                // before falling back to the current one
+                $data->setValue($parameter->getDefaultValue());
+                $data->setUseDefaultValue(true);
             }
         });
 
@@ -56,32 +74,25 @@ class MenuItemParameterType extends AbstractType {
             $form = $event->getForm();
 
             $parameter = $data->getParameter();
-            $parameterName = $parameter->getName() ? $parameter->getName() : $parameter->getParameter();
-            $default = $parameter->getDefaultValue();
-
-            if ($default) {
-                $data->setValue($default);
-            }
 
             $requirement = $parameter->getRequirement();
             $choices = $this->getChoices($requirement);
 
-            if ($choices) {
-                $this->addValueChoiceField($form, $choices, $requirement);
-            } else {
-                $form
-                    ->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
-                        'label'       => sprintf('Value for parameter "%s"', $parameterName),
-                        'attr'        => [
-                            'placeholder' => $default ? sprintf('%s (Default: %s)', $parameterName, $default) : $parameterName
-                        ],
-                        'constraints' => [
-                            $this->createNotBlankConstraint(),
-                            $this->createRegexConstaint($requirement)
-                        ]
-                    ]);
+            if ($data->getUseDefaultValue() && $parameter->getDefaultValue()) {
+                // if editing a MenuItem that has a default value that has not been removed from the RouteParameter
+                // You would generally want to update the current default value of RouteParameter in the MenuItemParameter
+                // This will also force the form to display an empty text box, or pre-selected placeholder of the select field
+                // which will later force it to have the default value copied over if the user did not specify a value
+                $data->setValue(null);
             }
 
+            if ($choices) {
+                $this->addValueChoiceField($form, $choices, $parameter);
+            } else {
+                $this->addValueTextField($form, $parameter);
+            }
+
+            $parameterName = $this->getParameterName($parameter);
             $form
                 ->add('parameter', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                     'class'         => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter',
@@ -110,6 +121,10 @@ class MenuItemParameterType extends AbstractType {
                     ]
                 ]);
         });
+    }
+
+    protected function getParameterName(RouteParameter $parameter) {
+        return $parameter->getName() ? $parameter->getName() : $parameter->getParameter();
     }
 
     protected function createNotBlankConstraint() {
@@ -156,14 +171,49 @@ class MenuItemParameterType extends AbstractType {
         return $choices;
     }
 
-    protected function addValueChoiceField(FormInterface $form, $choices, $requirement) {
-        $form->add('value', 'Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\MenuItemParameterChoiceType', [
+    protected function addValueChoiceField(FormInterface $form, $choices, RouteParameter $parameter) {
+        $parameterName = $parameter->getName() ? $parameter->getName() : $parameter->getParameter();
+        $placeholder = 'Please select one or create a new value if allowed by requirement';
+        if ($parameter->getDefaultValue()) {
+            $placeholder = sprintf('Dynamic (Current fallback: %s)', $parameter->getDefaultValue());
+        }
+        $options = [
+            'label'       => sprintf('Value for parameter "%s"', $parameterName),
+            'placeholder' => $placeholder,
             'choices'     => $choices,
             'constraints' => [
-                $this->createNotBlankConstraint(),
-                $this->createRegexConstaint($requirement)
-            ]
-        ]);
+                $this->createRegexConstaint($parameter->getRequirement())
+            ],
+            'required'    => false
+        ];
+        if (!$parameter->getDefaultValue()) {
+            $options['constraints'][] = $this->createNotBlankConstraint();
+            $options['required'] = true;
+        }
+        $form->add('value', 'Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\MenuItemParameterChoiceType', $options);
+    }
+
+    protected function addValueTextField(FormInterface $form, RouteParameter $parameter) {
+        $constraints = [
+            $this->createRegexConstaint($parameter->getRequirement())
+        ];
+
+        if (!$parameter->getDefaultValue()) {
+            $constraints[] = $this->createNotBlankConstraint();
+        }
+
+        $parameterName = $this->getParameterName($parameter);
+        $defaultValue = $parameter->getDefaultValue();
+
+        $form
+            ->add('value', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
+                'label'       => $defaultValue ? sprintf('Value for "%s", leave blank for dynamic fallback (current: %s)', $parameterName, $defaultValue) : sprintf('Value for "%s"', $parameterName),
+                'attr'        => [
+                    'placeholder' => $defaultValue ? sprintf('Value for "%s", leave blank for dynamic fallback (current: %s)', $parameterName, $defaultValue) : $parameterName
+                ],
+                'constraints' => $constraints,
+                'required'    => $defaultValue ? false : true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

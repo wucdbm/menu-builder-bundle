@@ -56,11 +56,26 @@ class MenuItemExtension extends \Twig_Extension {
         /** @var MenuItemParameter $parameter */
         foreach ($item->getParameters() as $parameter) {
             $key = $parameter->getParameter()->getParameter();
-            $value = $parameter->getValue();
+            $value = $this->getValue($parameter);
             $parameters[$key] = $value;
         }
 
         return $this->router->generate($route, $parameters, $type);
+    }
+
+    protected function getValue(MenuItemParameter $parameter) {
+        if ($parameter->getUseDefaultValue()) {
+            $routeParameter = $parameter->getParameter();
+            $routeParameterDefaultValue = $routeParameter->getDefaultValue();
+            if ($routeParameterDefaultValue) {
+                return $routeParameterDefaultValue;
+            }
+            // If configured to use the default value, but the default value is no longer present for the RouteParameter
+            // return value instead because the RouteParameter default value has been saved in the value field
+            // when this MenuItemParameter was created
+        }
+
+        return $parameter->getValue();
     }
 
     public function getName() {

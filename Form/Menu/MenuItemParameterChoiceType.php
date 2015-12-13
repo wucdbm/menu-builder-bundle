@@ -30,7 +30,8 @@ class MenuItemParameterChoiceType extends AbstractType {
             },
             'choice_value'       => function ($allChoices) {
                 return $allChoices;
-            }
+            },
+            'empty_data'         => null
         ]);
     }
 
