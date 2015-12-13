@@ -4,6 +4,38 @@
 
     <div class="row">
         <div class="col-sm-12">
+            <h2>Examples</h2>
+            <p>Those examples should give you an idea how to use the menu and this builder.</p>
+            <p>You can use these templates as a starting point, but <code>NEVER</code> in your live site.</p>
+            <hr>
+        </div>
+        <div class="col-sm-12">
+            <h2>Simple list</h2>
+            <p>Simple nested unordered list.</p>
+            <hr>
+            {% include '@WucdbmMenuBuilder/Menu/preview/list.html.twig' with {items: menu|menuTopLevelItems} %}
+            <br>
+            <code>
+                {% raw %}
+                    {% include '@WucdbmMenuBuilder/Menu/preview/list.html.twig' with {items: menu|menuTopLevelItems} %}
+                {% endraw %}
+            </code>
+        </div>
+        <div class="col-sm-12">
+            <h2>Bootstrap Pills</h2>
+            <p>Links for links with children are displayed as buttons. Feel free to display whatever suits you in your own implementation.</p>
+            <p>Also notice how the <code>list-group-item</code> class is used on <code>li</code>s to take advantage of its paddings and make it appealing.</p>
+            <p>Feel free to implement your own presentation</p>
+            <hr>
+            {% include '@WucdbmMenuBuilder/Menu/preview/pills.html.twig' with {items: menu|menuTopLevelItems} %}
+            <br>
+            <code>
+                {% raw %}
+                    {% include '@WucdbmMenuBuilder/Menu/preview/pills.html.twig' with {items: menu|menuTopLevelItems} %}
+                {% endraw %}
+            </code>
+        </div>
+        <div class="col-sm-12">
             <h2>Multi level dropdown</h2>
             <p>There is an additional piece of CSS inlined on this page that you need to make multi-level dropdowns possible in BS3</p>
             <hr>
@@ -21,16 +53,16 @@
             <br>
             <textarea class="form-control" rows="12">{% raw %}
                     <div class="dropdown">
-                        <a role="button" data-toggle="dropdown" class="btn btn-primary" href="javascript:;">
-                            Some Dropdown
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                            {% for item in menu|menuTopLevelItems %}
-                                {% include '@WucdbmMenuBuilder/Menu/preview/dropdown.html.twig' %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    <a role="button" data-toggle="dropdown" class="btn btn-primary" href="javascript:;">
+                        Some Dropdown
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                        {% for item in menu|menuTopLevelItems %}
+                        {% include '@WucdbmMenuBuilder/Menu/preview/dropdown.html.twig' %}
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endraw %}</textarea>
             <style type="text/css" scoped="scoped">
                 .dropdown-submenu {
@@ -81,32 +113,6 @@
                     border-radius: 6px 0 6px 6px;
                 }
             </style>
-        </div>
-        <div class="col-sm-12">
-            <h2>Bootstrap Pills</h2>
-            <p>Links for links with children are displayed as buttons. Feel free to display whatever suits you in your own implementation.</p>
-            <p>Also notice how the <code>list-group-item</code> class is used on <code>li</code>s to take advantage of its paddings and make it appealing.</p>
-            <p>Feel free to implement your own presentation</p>
-            <hr>
-            {% include '@WucdbmMenuBuilder/Menu/preview/pills.html.twig' with {items: menu|menuTopLevelItems} %}
-            <br>
-            <code>
-                {% raw %}
-                    {% include '@WucdbmMenuBuilder/Menu/preview/pills.html.twig' with {items: menu|menuTopLevelItems} %}
-                {% endraw %}
-            </code>
-        </div>
-        <div class="col-sm-12">
-            <h2>Simple list</h2>
-            <p>Simple nested unordered list.</p>
-            <hr>
-            {% include '@WucdbmMenuBuilder/Menu/preview/list.html.twig' with {items: menu|menuTopLevelItems} %}
-            <br>
-            <code>
-                {% raw %}
-                    {% include '@WucdbmMenuBuilder/Menu/preview/list.html.twig' with {items: menu|menuTopLevelItems} %}
-                {% endraw %}
-            </code>
         </div>
     </div>
 
