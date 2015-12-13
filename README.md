@@ -41,7 +41,7 @@ twig function, which will return `Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu` o
 Menu items can be a parent of another MenuItem and have children. A good idea when listing the top-level menu is to only list items whose parent is null:
 
 ```
-{# New: You can use the `menuTopLevelItems` filter to get all top-level items: #}
+{# New: You can use the menuTopLevelItems filter to get all top-level items: #}
 {% for item in getMenu(1)|menuTopLevelItems %}
 ```
 
