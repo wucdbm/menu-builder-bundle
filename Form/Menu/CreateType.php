@@ -11,9 +11,9 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wucdbm\Bundle\WucdbmBundle\Form\AbstractType;
 
 class CreateType extends AbstractType {
 
@@ -25,10 +25,6 @@ class CreateType extends AbstractType {
                     'placeholder' => 'Name'
                 ]
             ]);
-    }
-
-    public function getName() {
-        return 'wucdbm_menu_builder_menu_edit';
     }
 
     public function configureOptions(OptionsResolver $resolver) {

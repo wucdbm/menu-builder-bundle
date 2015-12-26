@@ -28,7 +28,7 @@ class MenuController extends BaseController {
         $repo = $this->get('wucdbm_menu_builder.repo.menus');
         $filter = new MenuFilter();
         $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(new MenuFilterType(), $filter);
+        $filterForm = $this->createForm(MenuFilterType::class, $filter);
         $filter->load($request, $filterForm);
         $menus = $repo->filter($filter);
         $data = [
@@ -43,7 +43,7 @@ class MenuController extends BaseController {
 
     public function createAction(Request $request) {
         $menu = new Menu();
-        $form = $this->createForm(new CreateType(), $menu);
+        $form = $this->createForm(CreateType::class, $menu);
 
         $form->handleRequest($request);
 
@@ -169,7 +169,7 @@ class MenuController extends BaseController {
 
     public function addItemAction(Menu $menu, Request $request) {
         $item = new MenuItem();
-        $form = $this->createForm(new RouteChoiceType(), $item);
+        $form = $this->createForm(RouteChoiceType::class, $item);
 
         $form->handleRequest($request);
 
@@ -201,7 +201,7 @@ class MenuController extends BaseController {
 
     public function addSubItemAction(Menu $menu, $itemId, Request $request) {
         $item = new MenuItem();
-        $form = $this->createForm(new RouteChoiceType(), $item);
+        $form = $this->createForm(RouteChoiceType::class, $item);
 
         $form->handleRequest($request);
 
@@ -237,7 +237,7 @@ class MenuController extends BaseController {
     }
 
     public function editItemAction(MenuItem $item, Request $request) {
-        $form = $this->createForm(new MenuItemType(), $item);
+        $form = $this->createForm(MenuItemType::class, $item);
 
         $form->handleRequest($request);
 

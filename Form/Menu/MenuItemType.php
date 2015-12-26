@@ -11,7 +11,6 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -22,6 +21,7 @@ use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType;
+use Wucdbm\Bundle\WucdbmBundle\Form\AbstractType;
 
 class MenuItemType extends AbstractType {
 

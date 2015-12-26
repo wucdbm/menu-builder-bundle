@@ -26,7 +26,7 @@ class RouteController extends BaseController {
         $repo = $this->get('wucdbm_menu_builder.repo.routes');
         $filter = new RouteFilter();
         $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(new RouteFilterType(), $filter);
+        $filterForm = $this->createForm(RouteFilterType::class, $filter);
         $filter->load($request, $filterForm);
         $routes = $repo->filter($filter);
         $data = [
@@ -60,7 +60,7 @@ class RouteController extends BaseController {
         $repo = $this->get('wucdbm_menu_builder.repo.routes_parameters');
         $filter = new RouteParameterFilter();
         $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(new RouteParameterFilterType(), $filter);
+        $filterForm = $this->createForm(RouteParameterFilterType::class, $filter);
         $filter->load($request, $filterForm);
         $parameters = $repo->filter($filter);
         $data = [
