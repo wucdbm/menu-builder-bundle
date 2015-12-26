@@ -105,7 +105,7 @@ class MenuItemType extends AbstractType {
                 // TODO: Make it possible to add custom parameters with custom names
 //                'allow_add'    => true,
 //                'allow_delete' => true,
-                'type'        => new MenuItemParameterType($item),
+                'entry_type'        => new MenuItemParameterType($item),
                 'constraints' => [
                     new Callback([
                         'callback' => $duplicateValidator
