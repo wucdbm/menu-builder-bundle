@@ -27,8 +27,8 @@ class RouteFilterType extends BaseFilterType {
             ->add('isNamed', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\ChoiceFilterType', [
                 'placeholder' => 'Is named filter',
                 'choices'     => [
-                    RouteFilter::IS_NAMED_FALSE => 'Only NOT named',
-                    RouteFilter::IS_NAMED_TRUE  => 'Only named'
+                    'Only NOT named' => RouteFilter::IS_NAMED_FALSE,
+                    'Only named' => RouteFilter::IS_NAMED_TRUE
                 ]
             ])
             ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [

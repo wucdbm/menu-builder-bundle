@@ -27,9 +27,9 @@ class MenuFilterType extends BaseFilterType {
                 'placeholder' => 'Name'
             ])
             ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
-                'class'       => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
-                'property'    => 'route',
-                'placeholder' => 'Route'
+                'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
+                'choice_label' => 'route',
+                'placeholder'  => 'Route'
             ]);
     }
 

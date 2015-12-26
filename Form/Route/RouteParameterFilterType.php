@@ -28,8 +28,8 @@ class RouteParameterFilterType extends BaseFilterType {
             ->add('isNamed', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\ChoiceFilterType', [
                 'placeholder' => 'Is named filter',
                 'choices'     => [
-                    RouteParameterFilter::IS_NAMED_FALSE => 'Only NOT named',
-                    RouteParameterFilter::IS_NAMED_TRUE  => 'Only named'
+                    'Only NOT named' => RouteParameterFilter::IS_NAMED_FALSE,
+                    'Only named'     => RouteParameterFilter::IS_NAMED_TRUE
                 ]
             ])
             ->add('parameter', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
@@ -43,13 +43,13 @@ class RouteParameterFilterType extends BaseFilterType {
                 'query_builder' => function (RouteRepository $repository) {
                     return $repository->getRoutesWithParametersQueryBuilder();
                 },
-                'property'      => 'route',
+                'choice_label'  => 'route',
                 'placeholder'   => 'Route'
             ])
             ->add('type', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
-                'class'       => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType',
-                'property'    => 'name',
-                'placeholder' => 'Type'
+                'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameterType',
+                'choice_label' => 'name',
+                'placeholder'  => 'Type'
             ]);
     }
 

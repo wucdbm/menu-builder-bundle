@@ -20,10 +20,10 @@ class RouteChoiceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('route', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
-                'class'       => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
-                'property'    => 'route',
-                'placeholder' => 'Route',
-                'attr'        => [
+                'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
+                'choice_label' => 'route',
+                'placeholder'  => 'Route',
+                'attr'         => [
                     'class' => 'select2'
                 ]
             ]);
