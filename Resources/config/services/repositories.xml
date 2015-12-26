@@ -9,8 +9,9 @@
 
     <services>
 
-        <service id="wucdbm_menu_builder.repo.abstract" factory-service="doctrine.orm.default_entity_manager"
-                 factory-method="getRepository" abstract="true"/>
+        <service id="wucdbm_menu_builder.repo.abstract" abstract="true">
+            <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
+        </service>
 
         <service id="wucdbm_menu_builder.repo.menus" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuRepository"
                  parent="wucdbm_menu_builder.repo.abstract">
