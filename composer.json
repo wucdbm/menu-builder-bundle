@@ -12,7 +12,8 @@
     ],
     "require": {
         "php": "~5.5",
-        "wucdbm/wucdbm-bundle": "~2.8|~3.0"
+        "wucdbm/wucdbm-bundle": "~3.0",
+        "symfony/symfony": "~2.8|~3.0"
     },
     "autoload": {
         "psr-4": { "Wucdbm\\Bundle\\MenuBuilderBundle\\": "" }
