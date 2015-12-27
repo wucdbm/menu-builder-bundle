@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_routes_parameters",
+ * @ORM\Table(name="_wucdbm__menu_builder_routes_parameters",
  *      uniqueConstraints={
  *          @ORM\UniqueConstraint(name="route_parameter", columns={"route_id", "parameter"})
  *      }

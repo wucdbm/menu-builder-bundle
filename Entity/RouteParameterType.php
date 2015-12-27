@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterTypeRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_routes_parameters_types")
+ * @ORM\Table(name="_wucdbm__menu_builder_routes_parameters_types")
  */
 class RouteParameterType {
 

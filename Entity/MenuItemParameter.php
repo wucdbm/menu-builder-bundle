@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_menus_items_parameters",
+ * @ORM\Table(name="_wucdbm__menu_builder_menus_items_parameters",
  *      uniqueConstraints={
  *          @ORM\UniqueConstraint(name="item_parameter", columns={"item_id", "parameter_id"})
  *      }

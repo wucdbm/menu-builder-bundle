@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuRepository")
- * @ORM\Table(name="_wucdbm_menu_builder_menus")
+ * @ORM\Table(name="_wucdbm__menu_builder_menus")
  */
 class Menu {
 
