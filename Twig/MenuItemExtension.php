@@ -11,7 +11,6 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
-use App\Entity\Booking;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
@@ -30,15 +29,15 @@ class MenuItemExtension extends \Twig_Extension {
 
     public function getFilters() {
         return array(
-            'menuItemUrl'  => new \Twig_Filter_Method($this, 'menuItemUrl'),
-            'menuItemPath' => new \Twig_Filter_Method($this, 'menuItemPath')
+            new \Twig_SimpleFilter('menuItemUrl', [$this, 'menuItemUrl']),
+            new \Twig_SimpleFilter('menuItemPath', [$this, 'menuItemPath'])
         );
     }
 
     public function getFunctions() {
         return array(
-            'menuItemUrl'  => new \Twig_Function_Method($this, 'menuItemUrl'),
-            'menuItemPath' => new \Twig_Function_Method($this, 'menuItemPath')
+            new \Twig_SimpleFunction('menuItemUrl', [$this, 'menuItemUrl']),
+            new \Twig_SimpleFunction('menuItemPath', [$this, 'menuItemPath'])
         );
     }
 

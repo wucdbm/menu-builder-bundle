@@ -11,7 +11,6 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Twig;
 
-use App\Entity\Booking;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\MenuBuilderBundle\Manager\MenuManager;
@@ -29,15 +28,15 @@ class MenuExtension extends \Twig_Extension {
 
     public function getFilters() {
         return [
-            'getMenu'           => new \Twig_Filter_Method($this, 'getMenu'),
-            'menuTopLevelItems' => new \Twig_Filter_Method($this, 'menuTopLevelItems')
+            new \Twig_SimpleFilter('getMenu', [$this, 'getMenu']),
+            new \Twig_SimpleFilter('menuTopLevelItems', [$this, 'menuTopLevelItems'])
         ];
     }
 
     public function getFunctions() {
         return [
-            'getMenu'  => new \Twig_Function_Method($this, 'getMenu'),
-            'getMenus' => new \Twig_Function_Method($this, 'getMenus')
+            new \Twig_SimpleFunction('getMenu', [$this, 'getMenu']),
+            new \Twig_SimpleFunction('getMenus', [$this, 'getMenus'])
         ];
     }
 
