@@ -11,7 +11,7 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Composer;
 
-use Composer\Script\CommandEvent;
+use Composer\Script\Event;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -25,9 +25,9 @@ class ScriptHandler {
     /**
      * Imports routes into the database.
      *
-     * @param $event CommandEvent A instance
+     * @param $event Event A instance
      */
-    public static function importRoutes(CommandEvent $event) {
+    public static function importRoutes(Event $event) {
         $options = self::getOptions($event);
         $appDir = $options['symfony-app-dir'];
         $webDir = $options['symfony-web-dir'];
@@ -41,7 +41,7 @@ class ScriptHandler {
         static::executeCommand($event, $appDir, 'wucdbm_menu_builder:import_routes');
     }
 
-    protected static function getOptions(CommandEvent $event) {
+    protected static function getOptions(Event $event) {
         $options = array_merge(array(
             'symfony-app-dir'        => 'app',
             'symfony-web-dir'        => 'web',
@@ -62,7 +62,7 @@ class ScriptHandler {
         return $phpPath;
     }
 
-    protected static function executeCommand(CommandEvent $event, $appDir, $cmd, $timeout = 300) {
+    protected static function executeCommand(Event $event, $appDir, $cmd, $timeout = 300) {
         $php = escapeshellarg(self::getPhp());
         $console = escapeshellarg($appDir . '/console');
         if ($event->getIO()->isDecorated()) {
