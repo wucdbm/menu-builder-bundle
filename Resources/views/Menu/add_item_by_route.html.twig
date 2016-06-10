@@ -1,5 +1,14 @@
 {% extends '@WucdbmMenuBuilder/Menu/base.html.twig' %}
 
+{% macro itemParent(item) %}
+    {% if item.parent %}
+        {{ _self.itemParent(item.parent) }}
+    {% endif %}
+    <li>
+        Child of <code>{{ item.name }}</code>
+    </li>
+{% endmacro %}
+
 {% block content %}
 
     <div class="row">
@@ -56,18 +65,24 @@
         </a>
     </li>
     <li>
-        {% if item.id %}
-            Edit
-        {% else %}
-            Add
-        {% endif %}
+        Items
     </li>
-    {% if item.parent %}
+    {% if not item.id %}
         <li>
-            Child to <code>{{ item.parent.name }}</code>
+            Add
         </li>
     {% endif %}
+    {% if item.parent %}
+        {{ _self.itemParent(item.parent) }}
+    {% endif %}
     <li>
-        Route <code>{{ route.route }}</code>
+        Page
+        {{ route|routeName }}
+        {#{% if route.name %}#}
+            {#{{ route.name }}#}
+            {#(<code>{{ route.route }}</code>)#}
+        {#{% else %}#}
+            {#<code>{{ route.route }}</code>#}
+        {#{% endif %}#}
     </li>
 {% endblock %}

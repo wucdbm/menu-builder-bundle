@@ -13,6 +13,8 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
+use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
 use Wucdbm\Bundle\WucdbmBundle\Form\AbstractType;
 
 class RouteChoiceType extends AbstractType {
@@ -20,10 +22,26 @@ class RouteChoiceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('route', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
-                'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
-                'choice_label' => 'route',
-                'placeholder'  => 'Route',
-                'attr'         => [
+                'label'         => 'Page',
+                'class'         => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
+                'query_builder' => function (RouteRepository $repository) {
+                    return $repository->getPublicRoutesQueryBuilder();
+                },
+                'choice_label'  => function (Route $route) {
+                    if ($route->getName()) {
+                        return sprintf('%s (%s)', $route->getName(), $route->getRoute());
+                    }
+
+                    $routeName = str_replace(['_', '.'], ' ', $route->getRoute());
+                    $words = explode(' ', $routeName);
+                    foreach ($words as $key => $word) {
+                        $words[$key] = ucfirst($word);
+                    }
+
+                    return sprintf('%s (%s)', implode(' ', $words), $route->getRoute());
+                },
+                'placeholder'   => 'Page',
+                'attr'          => [
                     'class' => 'select2'
                 ]
             ]);

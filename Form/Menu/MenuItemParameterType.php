@@ -175,7 +175,7 @@ class MenuItemParameterType extends AbstractType {
         $parameterName = $parameter->getName() ? $parameter->getName() : $parameter->getParameter();
         $placeholder = 'Please select one or create a new value if allowed by requirement';
         if ($parameter->getDefaultValue()) {
-            $placeholder = sprintf('Dynamic (Current fallback: %s)', $parameter->getDefaultValue());
+            $placeholder = sprintf('Dynamic value (Default: %s)', $parameter->getDefaultValue());
         }
         $options = [
             'label'       => sprintf('Value for parameter "%s"', $parameterName),
@@ -224,6 +224,10 @@ class MenuItemParameterType extends AbstractType {
     }
 
     public function getName() {
+        return 'wucdbm_menu_builder_menu_item_parameter';
+    }
+
+    public function getBlockPrefix() {
         return 'wucdbm_menu_builder_menu_item_parameter';
     }
 }

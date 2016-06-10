@@ -50,7 +50,7 @@ class MenuRepository extends AbstractRepository {
 
         $route = $filter->getRoute();
         if ($route instanceof Route) {
-            $builder->andWhere('r.id = :routeId')
+            $builder->andWhere('itemRoute.id = :routeId')
                 ->setParameter('routeId', $route->getId());
         }
 
@@ -77,9 +77,10 @@ class MenuRepository extends AbstractRepository {
      */
     public function findAll() {
         $builder = $this->getQueryBuilder();
+
         $query = $builder->getQuery();
 
-        return $query->getOneOrNullResult();
+        return $query->getResult();
     }
 
     public function getQueryBuilder() {

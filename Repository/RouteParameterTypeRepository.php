@@ -43,7 +43,7 @@ class RouteParameterTypeRepository extends AbstractRepository {
             return $type;
         }
 
-        return $this->createType(RouteParameterType::ID_QUERY_STRING, 'Query String');
+        return $this->createType(RouteParameterType::ID_QUERY_STRING, 'Query Parameter');
     }
 
     public function findTypeById($typeId) {

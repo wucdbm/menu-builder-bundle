@@ -21,3 +21,9 @@ body {
 .table > thead:first-child > tr:first-child > th {
     border-bottom: 0;
 }
+
+.navbar-brand {
+    padding: 5px;
+    width: 50px;
+    display: block;
+}

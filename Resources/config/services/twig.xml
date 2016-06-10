@@ -12,6 +12,10 @@
             <tag name="twig.extension"/>
             <argument type="service" id="router"/>
         </service>
+        <service id="wucdbm_menu_builder.twig.route" class="Wucdbm\Bundle\MenuBuilderBundle\Twig\RouteExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="wucdbm_menu_builder.manager.routes"/>
+        </service>
 
     </services>
 </container>

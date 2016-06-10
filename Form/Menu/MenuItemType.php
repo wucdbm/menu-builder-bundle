@@ -28,7 +28,7 @@ class MenuItemType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
-                'label' => 'Name'
+                'label' => 'Display name - this will be displayed as the text of the generated hyperlink'
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -105,7 +105,7 @@ class MenuItemType extends AbstractType {
                 // TODO: Make it possible to add custom parameters with custom names
 //                'allow_add'    => true,
 //                'allow_delete' => true,
-                'entry_type'        => new MenuItemParameterType($item),
+                'entry_type'  => new MenuItemParameterType($item),
                 'constraints' => [
                     new Callback([
                         'callback' => $duplicateValidator

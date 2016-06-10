@@ -1,21 +1,16 @@
 <div class="row">
     <div class="col-sm-12">
-        <div class="button-group pull-right">
-            <a href="{{ path('wucdbm_menu_builder_menu_items_add', {id: menu.id}) }}" class="btn btn-link">
-                <i class="fa fa-plus"></i>
-                Add Top-level Item
-            </a>
-            <a href="{{ path('wucdbm_menu_builder_menu_remove', {id: menu.id}) }}" class="btn btn-link"
-               data-confirm="Should Menu '{{ menu.name }}' be removed?">
-                <i class="fa fa-times"></i>
-                Remove menu
-            </a>
-            <a href="{{ path('wucdbm_menu_builder_menu_preview', {id: menu.id}) }}" class="btn btn-link">
-                <i class="fa fa-search"></i>
-                Preview
-            </a>
-        </div>
-        <div class="clearfix"></div>
-        {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: menu|menuTopLevelItems} %}
+        {% if menu|menuTopLevelItems|length %}
+            {% include '@WucdbmMenuBuilder/Menu/view/items.html.twig' with {items: menu|menuTopLevelItems} %}
+        {% else %}
+            <div class="alert alert-info">
+                <p>This menu does not have any items yet</p>
+                <br/>
+                <a href="{{ path('wucdbm_menu_builder_menu_items_add', {id: menu.id}) }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    Create your first
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>

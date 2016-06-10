@@ -17,11 +17,12 @@
                             <th>Path</th>
                             <th>Name</th>
                             <th>Parameters</th>
+                            <th>Type</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for route in routes %}
-                            <tr>
+                            <tr data-refresh="{{ path('wucdbm_menu_builder_route_refresh_row', {id: route.id}) }}">
                                 {% include '@WucdbmMenuBuilder/Route/routes/list_row.html.twig' %}
                             </tr>
                         {% endfor %}

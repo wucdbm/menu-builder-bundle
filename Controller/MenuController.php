@@ -41,6 +41,41 @@ class MenuController extends BaseController {
         return $this->render('@WucdbmMenuBuilder/Menu/list.html.twig', $data);
     }
 
+    public function refreshListRowAction(Menu $menu) {
+        $data = [
+            'menu' => $menu
+        ];
+
+        return $this->render('@WucdbmMenuBuilder/Menu/list_row.html.twig', $data);
+    }
+
+    public function makeSystemAction($id) {
+        return $this->system($id, true);
+    }
+
+    public function makePublicAction($id) {
+        return $this->system($id, false);
+    }
+
+    protected function system($id, $boolean) {
+        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
+        $menu = $repo->findOneById($id);
+        
+        if (!$menu) {
+            return $this->witter([
+                'text' => 'Menu not found'
+            ]);
+        }
+        
+        $menu->setIsSystem($boolean);
+        $repo->save($menu);
+
+        return $this->json([
+            'success' => true,
+            'refresh' => true
+        ]);
+    }
+
     public function createAction(Request $request) {
         $menu = new Menu();
         $form = $this->createForm(CreateType::class, $menu);
@@ -141,7 +176,17 @@ class MenuController extends BaseController {
 
     public function removeAction(Menu $menu, Request $request) {
         if ($request->isXmlHttpRequest()) {
+            if ($menu->getIsSystem()) {
+                return $this->json([
+                    'witter' => [
+                        'title' => sprintf('Failed removing Menu %s', $menu->getName()),
+                        'text'  => sprintf('You can not delete Menu %s because it is a System menu.', $menu->getItems())
+                    ]
+                ]);
+            }
+
             $isConfirmed = $request->request->get('is_confirmed');
+
             if ($isConfirmed) {
                 $menuRepository = $this->container->get('wucdbm_menu_builder.repo.menus');
                 $menuRepository->remove($menu);

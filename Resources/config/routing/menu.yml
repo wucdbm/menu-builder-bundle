@@ -6,6 +6,10 @@ wucdbm_menu_builder_menu_create:
     path:        /create
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:create }
 
+wucdbm_menu_builder_menu_list_row_refresh:
+    path:        /{id}/list/refresh
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:refreshListRow }
+
 wucdbm_menu_builder_menu_edit_refresh:
     path:        /{id}/edit/refresh
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:refreshEdit }
@@ -25,6 +29,14 @@ wucdbm_menu_builder_menu_remove:
 wucdbm_menu_builder_menu_preview:
     path:        /{id}/preview
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:preview }
+
+wucdbm_menu_builder_menu_make_system:
+    path:        /{id}/make/system
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:makeSystem }
+
+wucdbm_menu_builder_menu_make_public:
+    path:        /{id}/make/public
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:makePublic }
 
 wucdbm_menu_builder_menu_items_add_by_route:
     path:        /{id}/items/add/{routeId}

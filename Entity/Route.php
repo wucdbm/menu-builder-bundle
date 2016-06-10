@@ -47,6 +47,11 @@ class Route {
     protected $name;
 
     /**
+     * @ORM\Column(name="is_system", type="boolean", nullable=false)
+     */
+    protected $isSystem = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="route")
      */
     protected $items;
@@ -173,6 +178,20 @@ class Route {
      */
     public function getParameters() {
         return $this->parameters;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsSystem() {
+        return $this->isSystem;
+    }
+
+    /**
+     * @param boolean $isSystem
+     */
+    public function setIsSystem($isSystem) {
+        $this->isSystem = $isSystem;
     }
 
 }

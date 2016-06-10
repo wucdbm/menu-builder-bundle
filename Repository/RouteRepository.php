@@ -17,16 +17,36 @@ use Wucdbm\Bundle\WucdbmBundle\Repository\AbstractRepository;
 
 class RouteRepository extends AbstractRepository {
 
+    public function getPublicRoutesQueryBuilder() {
+        $builder = $this->getQueryBuilder();
+
+        $builder->andWhere('r.isSystem = :isSystem')
+            ->setParameter('isSystem', false);
+
+        return $builder;
+    }
+
+    /**
+     * @return Route[]
+     */
+    public function findAll() {
+        $builder = $this->getQueryBuilder();
+
+        $query = $builder->getQuery();
+
+        return $query->getResult();
+    }
+
     public function filter(RouteFilter $filter) {
         $builder = $this->getQueryBuilder();
 
         if ($filter->getName()) {
-            $builder->andWhere('r.name = :name')
+            $builder->andWhere('r.name LIKE :name')
                 ->setParameter('name', '%' . $filter->getName() . '%');
         }
 
         if ($filter->getRoute()) {
-            $builder->andWhere('r.route = :route')
+            $builder->andWhere('r.route LIKE :route')
                 ->setParameter('route', '%' . $filter->getRoute() . '%');
         }
 
@@ -96,6 +116,12 @@ class RouteRepository extends AbstractRepository {
     public function save(Route $route) {
         $em = $this->getEntityManager();
         $em->persist($route);
+        $em->flush($route);
+    }
+
+    public function remove(Route $route) {
+        $em = $this->getEntityManager();
+        $em->remove($route);
         $em->flush($route);
     }
 

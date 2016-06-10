@@ -21,25 +21,28 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('wucdbm_menu_builder_dashboard') }}">WMB</a>
+            <a class="navbar-brand" href="{{ path('wucdbm_menu_builder_dashboard') }}">
+                <img src="{{ asset('bundles/wucdbmmenubuilder/img/menu-icon-40.png') }}"/>
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="{{ 'wucdbm_menu_builder_dashboard'|isRoute('active') }}">
                     <a href="{{ path('wucdbm_menu_builder_dashboard') }}">
-                        Home
+                        Dashboard
                     </a>
                 </li>
                 <li class="{{ 'wucdbm_menu_builder_route_list'|isRoute('active') }}">
                     <a href="{{ path('wucdbm_menu_builder_route_list') }}">
-                        Routes
+                        Route
                     </a>
                 </li>
-                <li class="{{ 'wucdbm_menu_builder_route_parameter_list'|isRoute('active') }}">
-                    <a href="{{ path('wucdbm_menu_builder_route_parameter_list') }}">
-                        Route Parameters
-                    </a>
-                </li>
+                {# TODO: Remove route parameter pages altogether? We have the parameters @ Routes #}
+                {#<li class="{{ 'wucdbm_menu_builder_route_parameter_list'|isRoute('active') }}">#}
+                    {#<a href="{{ path('wucdbm_menu_builder_route_parameter_list') }}">#}
+                        {#Route Parameters#}
+                    {#</a>#}
+                {#</li>#}
                 <li class="{{ 'wucdbm_menu_builder_menu_list'|isRoute('active') }}">
                     <a href="{{ path('wucdbm_menu_builder_menu_list') }}">
                         Menus

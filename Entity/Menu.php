@@ -33,6 +33,11 @@ class Menu {
     protected $name;
 
     /**
+     * @ORM\Column(name="is_system", type="boolean", nullable=false)
+     */
+    protected $isSystem = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="menu")
      */
     protected $items;
@@ -94,6 +99,20 @@ class Menu {
      */
     public function getItems() {
         return $this->items;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsSystem() {
+        return $this->isSystem;
+    }
+
+    /**
+     * @param boolean $isSystem
+     */
+    public function setIsSystem($isSystem) {
+        $this->isSystem = $isSystem;
     }
 
 }

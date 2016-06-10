@@ -39,6 +39,44 @@ class RouteController extends BaseController {
         return $this->render('@WucdbmMenuBuilder/Route/routes/list.html.twig', $data);
     }
 
+    public function refreshListRowAction($id) {
+        $repo = $this->get('wucdbm_menu_builder.repo.routes');
+        $route = $repo->findOneById($id);
+
+        $data = [
+            'route' => $route
+        ];
+
+        return $this->render('@WucdbmMenuBuilder/Route/routes/list_row.html.twig', $data);
+    }
+
+    public function makeSystemAction($id) {
+        return $this->system($id, true);
+    }
+
+    public function makePublicAction($id) {
+        return $this->system($id, false);
+    }
+
+    protected function system($id, $boolean) {
+        $repo = $this->container->get('wucdbm_menu_builder.repo.routes');
+        $route = $repo->findOneById($id);
+
+        if (!$route) {
+            return $this->witter([
+                'text' => 'Route not found'
+            ]);
+        }
+        
+        $route->setIsSystem($boolean);
+        $repo->save($route);
+
+        return $this->json([
+            'success' => true,
+            'refresh' => true
+        ]);
+    }
+
     public function updateRouteNameAction($id, Request $request) {
         $post = $request->request;
         // name, value, pk

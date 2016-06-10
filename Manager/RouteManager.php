@@ -11,9 +11,10 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Manager;
 
-use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\Route as SymfonyRoute;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterRepository;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterTypeRepository;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
@@ -48,9 +49,24 @@ class RouteManager extends Manager {
     }
 
     /**
+     * @return Route[]
+     */
+    public function findAll() {
+        return $this->routeRepo->findAll();
+    }
+
+    /**
      * @param Router $router
      */
     public function importRouter(Router $router) {
+        $routes = $this->findAll();
+
+        $toRemove = [];
+        /** @var Route $route */
+        foreach ($routes as $route) {
+            $toRemove[$route->getRoute()] = $route;
+        }
+
         /** @var $collection RouteCollection */
         $collection = $router->getRouteCollection();
 
@@ -58,18 +74,27 @@ class RouteManager extends Manager {
 
         /**
          * @var string $routeName
-         * @var Route $route
+         * @var SymfonyRoute $route
          */
         foreach ($allRoutes as $routeName => $route) {
             $this->importRoute($routeName, $route);
+            unset($toRemove[$routeName]);
+        }
+
+        /**
+         * @var string $routeName
+         * @var Route $route
+         */
+        foreach ($toRemove as $routeName => $route) {
+            $this->removeRoute($route);
         }
     }
 
     /**
      * @param $routeName
-     * @param Route $route
+     * @param SymfonyRoute $route
      */
-    public function importRoute($routeName, Route $route) {
+    public function importRoute($routeName, SymfonyRoute $route) {
         $routeEntity = $this->routeRepo->saveIfNotExists($routeName);
         $routeEntity->setPath($route->getPath());
         $this->routeRepo->save($routeEntity);
@@ -94,6 +119,10 @@ class RouteManager extends Manager {
 //
 //            $this->setMethods(explode('|', $regex));
 //        }
+    }
+
+    public function removeRoute(Route $route) {
+        $this->routeRepo->remove($route);
     }
 
 }

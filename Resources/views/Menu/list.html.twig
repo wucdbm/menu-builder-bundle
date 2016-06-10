@@ -17,11 +17,12 @@
                             <th>Items</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for menu in menus %}
-                            <tr>
+                            <tr data-refresh="{{ path('wucdbm_menu_builder_menu_list_row_refresh', {id: menu.id}) }}">
                                 {% include '@WucdbmMenuBuilder/Menu/list_row.html.twig' %}
                             </tr>
                         {% endfor %}
