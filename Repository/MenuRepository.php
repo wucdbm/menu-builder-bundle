@@ -91,10 +91,7 @@ class MenuRepository extends AbstractRepository {
             ->leftJoin('i.children', 'itemChildren')
             ->leftJoin('i.parent', 'itemParent')
             ->leftJoin('i.menu', 'itemMenu')
-            ->leftJoin('i.route', 'itemRoute')
-//            ->addOrderBy('m.id', 'ASC')
-//            ->addOrderBy('i.ord', 'ASC')
-            ;
+            ->leftJoin('i.route', 'itemRoute');
     }
 
     public function save(Menu $menu) {
