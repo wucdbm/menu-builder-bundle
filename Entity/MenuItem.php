@@ -62,6 +62,7 @@ class MenuItem {
 
     /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="parent")
+     * @ORM\OrderBy({"ord" = "ASC"})
      */
     protected $children;
 
