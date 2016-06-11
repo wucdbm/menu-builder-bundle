@@ -33,6 +33,11 @@ class Menu {
     protected $name;
 
     /**
+     * @ORM\Column(name="system_name", type="string", nullable=true)
+     */
+    protected $systemName;
+
+    /**
      * @ORM\Column(name="is_system", type="boolean", nullable=false)
      */
     protected $isSystem = false;
@@ -68,6 +73,20 @@ class Menu {
      */
     public function setName($name) {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSystemName() {
+        return $this->systemName;
+    }
+
+    /**
+     * @param mixed $systemName
+     */
+    public function setSystemName($systemName) {
+        $this->systemName = $systemName;
     }
 
     /**

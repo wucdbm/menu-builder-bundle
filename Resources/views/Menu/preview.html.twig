@@ -113,6 +113,28 @@
                     border-radius: 6px 0 6px 6px;
                 }
             </style>
+
+            {% if false %}
+                <ul class="list-group">
+                    {% for item in items %}
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="x-editable-text" data-type="text" data-pk="1"
+                               data-url="asd"
+                               data-placement="top" title="Set Item Name">
+                                {{ item.name }}
+                            </a>
+                            <div class="btn-group pull-right">
+
+                            </div>
+                            {% if item.children|length %}
+                                <div class="clearfix"></div>
+                                <br>
+                                {% include _self with {items: item.children} %}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     </div>
 

@@ -26,8 +26,16 @@ class CreateType extends AbstractType {
                     'placeholder' => 'Name'
                 ]
             ])
+            ->add('systemName', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
+                'label'    => 'System name (serves mostly as a note for developers)',
+                'attr'     => [
+                    'placeholder' => 'System name (serves mostly as a note for developers)'
+                ],
+                'required' => false
+            ])
             ->add('isSystem', CheckboxType::class, [
-                'label' => 'This is a system Menu. System menus can not be deleted.'
+                'label'    => 'This is a system Menu. System menus can not be deleted.',
+                'required' => false
             ]);
     }
 
