@@ -4,9 +4,16 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div data-refresh="{{ path('wucdbm_menu_builder_menu_edit_refresh', {id: menu.id}) }}">
-                {% include '@WucdbmMenuBuilder/Menu/view/content.html.twig' %}
+            {% form_theme form '@WucdbmMenuBuilder/_shared/form/form_theme.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">
+                    Edit
+                </button>
             </div>
+            {{ form_end(form) }}
         </div>
     </div>
 
@@ -24,19 +31,6 @@
         <a href="{{ path('wucdbm_menu_builder_menu_preview', {id: menu.id}) }}">
             <i class="fa fa-search"></i>
             Preview
-        </a>
-    </li>
-    <li class="pull-right">
-        <a href="{{ path('wucdbm_menu_builder_menu_remove', {id: menu.id}) }}"
-           data-confirm="Should Menu '{{ menu.name }}' be removed?">
-            <i class="fa fa-times"></i>
-            Remove
-        </a>
-    </li>
-    <li class="pull-right">
-        <a href="{{ path('wucdbm_menu_builder_menu_items_add', {id: menu.id}) }}">
-            <i class="fa fa-plus"></i>
-            Add Item
         </a>
     </li>
 {% endblock %}

@@ -33,6 +33,11 @@ class MenuItem {
     protected $name;
 
     /**
+     * @ORM\Column(name="ord", type="string", options={"unsigned"=true}, nullable=false)
+     */
+    protected $ord = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu", inversedBy="items")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
@@ -57,6 +62,7 @@ class MenuItem {
 
     /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="parent")
+     * @ORM\OrderBy({"ord" = "ASC"})
      */
     protected $children;
 
@@ -155,7 +161,7 @@ class MenuItem {
      *
      * @return $this
      */
-    public function setParent(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $parent) {
+    public function setParent(\Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem $parent = null) {
         $this->parent = $parent;
 
         return $this;
@@ -191,6 +197,20 @@ class MenuItem {
      */
     public function getChildren() {
         return $this->children;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrd() {
+        return $this->ord;
+    }
+
+    /**
+     * @param int $ord
+     */
+    public function setOrd($ord) {
+        $this->ord = $ord;
     }
 
 }
