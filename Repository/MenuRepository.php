@@ -91,13 +91,19 @@ class MenuRepository extends AbstractRepository {
             ->leftJoin('i.children', 'itemChildren')
             ->leftJoin('i.parent', 'itemParent')
             ->leftJoin('i.menu', 'itemMenu')
-            ->leftJoin('i.route', 'itemRoute');
+            ->leftJoin('i.route', 'itemRoute')
+            ->addOrderBy('m.id', 'ASC')
+            ->addOrderBy('i.ord', 'ASC')
+            ->addOrderBy('itemChildren.ord', 'ASC');
     }
 
     public function save(Menu $menu) {
         $em = $this->getEntityManager();
         $em->persist($menu);
-        $em->flush($menu);
+        foreach ($menu->getItems() as $item) {
+            $em->persist($item);
+        }
+        $em->flush();
     }
 
 }

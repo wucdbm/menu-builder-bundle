@@ -3,8 +3,10 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 ## Upcoming / TODO
 
+- TODO: When removing dead routes, take all MenuItem s and move all their children to their parent before removing the items together with the Route
 - BUG: default value for _locale, then select some value - still generates with default value
 - TODO: Introduce cache
+- Put docs inside of this bundle, this is the Core and is for developers only. The Client one is meant to be your base client, if that does not satisfy you, build your own with your own user experience
 - Feature: Make it possible to completely ignore route parameters such as `_locale`, `_scheme` (maybe `_host`?) and use those from the current environment - a valid use case for that is if a user is browsing the french version of the website, but I want all links on my menu to link to pages in french and not the default fallback to english for instance.
 - UX: Better handling of route requirements such as asd|(ffs|xd)|dasdf - strip the parenthesis for the time being or process it somehow
 - Feature: Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value. Save the default value fo each parameter in its RouteParameter entity and if the field is blank, use the default value. that is, if the MenuItemParameter value is empty, use the RouteParameter default value. Also save the default value upon creation of the MenuItem and use that if the route no longer has a default value. This will prevent removing the default value and having no value on the MenuItem.

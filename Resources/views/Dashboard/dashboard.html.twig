@@ -7,8 +7,8 @@
                 {% for menu in menus %}
                     <a href="{{ path('wucdbm_menu_builder_menu_edit', {id: menu.id}) }}" class="btn btn-primary btn-block">
                         {{ menu.name }}
+                        <label class="label label-info pull-right">{{ menu.items|length }} URLs</label>
                     </a>
-                    <p><label class="label label-info">{{ menu.items|length }} URLs</label></p>
                 {% endfor %}
             {% else %}
                 <div class="alert alert-info">

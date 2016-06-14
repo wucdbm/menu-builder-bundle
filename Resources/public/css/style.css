@@ -27,3 +27,7 @@ body {
     width: 50px;
     display: block;
 }
+
+.btn .label {
+    top: 2px;
+}
