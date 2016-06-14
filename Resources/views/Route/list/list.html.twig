@@ -7,22 +7,23 @@
             {% form_theme filterForm '@WucdbmMenuBuilder/_shared/form/filter_theme.html.twig' %}
             {{ form(filterForm) }}
 
-            {% if parameters|length > 0 %}
+            {% if routes|length > 0 %}
                 <div class="flip-scroll">
                     <table class="table table-bordered table-striped table-condensed flip-content">
                         <thead class="flip-content">
                         <tr>
                             <th>ID</th>
-                            <th>Parameter</th>
-                            <th>Name</th>
                             <th>Route</th>
+                            <th>Path</th>
+                            <th>Name</th>
+                            <th>Parameters</th>
                             <th>Type</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for parameter in parameters %}
-                            <tr>
-                                {% include '@WucdbmMenuBuilder/Route/parameters/list_row.html.twig' %}
+                        {% for route in routes %}
+                            <tr data-refresh="{{ path('wucdbm_menu_builder_route_refresh_row', {id: route.id}) }}">
+                                {% include '@WucdbmMenuBuilder/Route/list/list_row.html.twig' %}
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -30,7 +31,7 @@
                 </div>
             {% else %}
                 <div class="alert alert-danger">
-                    No parameters found
+                    No routes found
                 </div>
             {% endif %}
         </div>
@@ -42,19 +43,8 @@
 
 {% endblock %}
 
-{% block scripts %}
-
-
-
-{% endblock %}
-
 {% block breadcrumb %}
     {{ parent() }}
-    <li>
-        <a href="{{ path('wucdbm_menu_builder_route_parameter_list') }}">
-            Parameters
-        </a>
-    </li>
     <li>
         List
     </li>

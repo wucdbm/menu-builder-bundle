@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteFilter;
-use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteParameterFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Form\Route\RouteFilterType;
-use Wucdbm\Bundle\MenuBuilderBundle\Form\Route\RouteParameterFilterType;
 use Wucdbm\Bundle\WucdbmBundle\Controller\BaseController;
 
 class RouteController extends BaseController {
@@ -36,7 +34,7 @@ class RouteController extends BaseController {
             'filterForm' => $filterForm->createView()
         ];
 
-        return $this->render('@WucdbmMenuBuilder/Route/routes/list.html.twig', $data);
+        return $this->render('@WucdbmMenuBuilder/Route/list/list.html.twig', $data);
     }
 
     public function refreshListRowAction($id) {
@@ -47,7 +45,7 @@ class RouteController extends BaseController {
             'route' => $route
         ];
 
-        return $this->render('@WucdbmMenuBuilder/Route/routes/list_row.html.twig', $data);
+        return $this->render('@WucdbmMenuBuilder/Route/list/list_row.html.twig', $data);
     }
 
     public function makeSystemAction($id) {
@@ -92,23 +90,6 @@ class RouteController extends BaseController {
         $repo->save($route);
 
         return new Response();
-    }
-
-    public function listParametersAction(Request $request) {
-        $repo = $this->get('wucdbm_menu_builder.repo.routes_parameters');
-        $filter = new RouteParameterFilter();
-        $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(RouteParameterFilterType::class, $filter);
-        $filter->load($request, $filterForm);
-        $parameters = $repo->filter($filter);
-        $data = [
-            'parameters' => $parameters,
-            'filter'     => $filter,
-            'pagination' => $pagination,
-            'filterForm' => $filterForm->createView()
-        ];
-
-        return $this->render('@WucdbmMenuBuilder/Route/parameters/list.html.twig', $data);
     }
 
     public function updateRouteParameterNameAction($id, Request $request) {
