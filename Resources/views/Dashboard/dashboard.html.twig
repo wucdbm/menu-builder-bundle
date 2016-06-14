@@ -1,29 +1,11 @@
 {% extends '@WucdbmMenuBuilder/layout.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-6">
-            {% if menus|length %}
-                {% for menu in menus %}
-                    <a href="{{ path('wucdbm_menu_builder_menu_edit', {id: menu.id}) }}" class="btn btn-primary btn-block">
-                        {{ menu.name }}
-                        <label class="label label-info pull-right">{{ menu.items|length }} URLs</label>
-                    </a>
-                {% endfor %}
-            {% else %}
-                <div class="alert alert-info">
-                    <p>
-                        You have no menus yet
-                    </p>
-                    <a href="{{ path('wucdbm_menu_builder_menu_create') }}" class="btn btn-primary">
-                        Create your first
-                    </a>
-                </div>
-            {% endif %}
-        </div>
+    <div class="alert alert-info">
+        <strong>Under Construction</strong>
+        <p>The Dashboard is meant to contain the most vital documentation for this project</p>
+        <p>This is however not yet done, so feel free to browse its source code</p>
+        <p>This bundle implements the core and the administrative interface of this menu builder</p>
+        <p>Alternatively, look at the WucdbmMenuBuilderClient bundle for user (as in for normal people, human beings) interface and/or directions on how to implement your own</p>
     </div>
-{% endblock %}
-
-{% block breadcrumb %}
-    <li>Dashboard</li>
 {% endblock %}
