@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteFilter;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\ChoiceFilterType;
+use Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType;
 
 class RouteFilterType extends BaseFilterType {
 
@@ -33,11 +34,14 @@ class RouteFilterType extends BaseFilterType {
                 ],
                 'choices_as_values' => true
             ])
-            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
+            ->add('name', TextFilterType::class, [
                 'placeholder' => 'Name'
             ])
-            ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
+            ->add('route', TextFilterType::class, [
                 'placeholder' => 'Route'
+            ])
+            ->add('parameterName', TextFilterType::class, [
+                'placeholder' => 'Parameter Name'
             ]);
     }
 

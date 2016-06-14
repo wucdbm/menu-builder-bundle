@@ -24,6 +24,9 @@ class RouteFilter extends AbstractFilter {
     /** @var  string */
     protected $route;
 
+    /** @var  string */
+    protected $parameterName;
+
     /** @var  integer */
     protected $isNamed;
 
@@ -67,6 +70,20 @@ class RouteFilter extends AbstractFilter {
      */
     public function setIsNamed($isNamed) {
         $this->isNamed = $isNamed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParameterName() {
+        return $this->parameterName;
+    }
+
+    /**
+     * @param string $parameterName
+     */
+    public function setParameterName($parameterName) {
+        $this->parameterName = $parameterName;
     }
 
 }
