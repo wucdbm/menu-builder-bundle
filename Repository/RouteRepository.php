@@ -50,8 +50,13 @@ class RouteRepository extends AbstractRepository {
                 ->setParameter('route', '%' . $filter->getRoute() . '%');
         }
 
+        if ($filter->getParameter()) {
+            $builder->andWhere('p.parameter LIKE :parameter')
+                ->setParameter('parameter', '%' . $filter->getParameter() . '%');
+        }
+
         if ($filter->getParameterName()) {
-            $builder->andWhere('p.parameter LIKE :parameterName')
+            $builder->andWhere('p.name LIKE :parameterName')
                 ->setParameter('parameterName', '%' . $filter->getParameterName() . '%');
         }
 

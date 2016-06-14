@@ -34,11 +34,14 @@ class RouteFilterType extends BaseFilterType {
                 ],
                 'choices_as_values' => true
             ])
-            ->add('name', TextFilterType::class, [
-                'placeholder' => 'Name'
-            ])
             ->add('route', TextFilterType::class, [
                 'placeholder' => 'Route'
+            ])
+            ->add('parameter', TextFilterType::class, [
+                'placeholder' => 'Parameter'
+            ])
+            ->add('name', TextFilterType::class, [
+                'placeholder' => 'Route Name'
             ])
             ->add('parameterName', TextFilterType::class, [
                 'placeholder' => 'Parameter Name'
