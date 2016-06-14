@@ -6,6 +6,9 @@
         {{ menu.name }}
     </a>
 </td>
+<td>
+    {{ menu.systemName }}
+</td>
 <td>{{ menu.items|length }}</td>
 <td>
     <a href="{{ path('wucdbm_menu_builder_menu_edit', {id: menu.id}) }}" class="btn btn-primary">

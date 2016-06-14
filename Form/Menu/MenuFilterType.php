@@ -13,6 +13,7 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
 class MenuFilterType extends BaseFilterType {
@@ -28,7 +29,19 @@ class MenuFilterType extends BaseFilterType {
             ])
             ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
                 'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
-                'choice_label' => 'route',
+                'choice_label'  => function (Route $route) {
+                    if ($route->getName()) {
+                        return sprintf('%s (%s)', $route->getName(), $route->getRoute());
+                    }
+
+                    $routeName = str_replace(['_', '.'], ' ', $route->getRoute());
+                    $words = explode(' ', $routeName);
+                    foreach ($words as $key => $word) {
+                        $words[$key] = ucfirst($word);
+                    }
+
+                    return sprintf('%s (%s)', implode(' ', $words), $route->getRoute());
+                },
                 'placeholder'  => 'Route'
             ]);
     }
