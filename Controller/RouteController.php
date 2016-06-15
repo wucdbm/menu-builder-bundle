@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Route\RouteFilter;
-use Wucdbm\Bundle\MenuBuilderBundle\Form\Route\RouteFilterType;
+use Wucdbm\Bundle\MenuBuilderBundle\Form\Route\FilterType;
 use Wucdbm\Bundle\WucdbmBundle\Controller\BaseController;
 
 class RouteController extends BaseController {
@@ -24,7 +24,7 @@ class RouteController extends BaseController {
         $repo = $this->get('wucdbm_menu_builder.repo.routes');
         $filter = new RouteFilter();
         $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(RouteFilterType::class, $filter);
+        $filterForm = $this->createForm(FilterType::class, $filter);
         $filter->load($request, $filterForm);
         $routes = $repo->filter($filter);
         $data = [

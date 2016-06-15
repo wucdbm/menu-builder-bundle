@@ -71,6 +71,19 @@ class RouteRepository extends AbstractRepository {
             }
         }
 
+        if ($filter->getIsSystem()) {
+            switch ($filter->getIsSystem()) {
+                case RouteFilter::IS_SYSTEM_TRUE:
+                    $builder->andWhere('r.isSystem = :isSystem')
+                        ->setParameter('isSystem', true);
+                    break;
+                case RouteFilter::IS_SYSTEM_FALSE:
+                    $builder->andWhere('r.isSystem = :isSystem')
+                        ->setParameter('isSystem', false);
+                    break;
+            }
+        }
+
         return $this->returnFilteredEntities($builder, $filter, 'r.id');
     }
 

@@ -14,7 +14,10 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Manager;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
+use Wucdbm\Bundle\MenuBuilderBundle\Entity\RouteParameter;
+use Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemRepository;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterRepository;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteParameterTypeRepository;
 use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
@@ -37,15 +40,23 @@ class RouteManager extends Manager {
     protected $routeParameterTypeRepo;
 
     /**
+     * @var MenuItemRepository
+     */
+    protected $menuItemRepo;
+
+    /**
      * RouteManager constructor.
      * @param RouteRepository $routeRepo
      * @param RouteParameterRepository $routeParameterRepo
      * @param RouteParameterTypeRepository $routeParameterTypeRepo
+     * @param MenuItemRepository $menuItemRepository
      */
-    public function __construct(RouteRepository $routeRepo, RouteParameterRepository $routeParameterRepo, RouteParameterTypeRepository $routeParameterTypeRepo) {
+    public function __construct(RouteRepository $routeRepo, RouteParameterRepository $routeParameterRepo,
+                                RouteParameterTypeRepository $routeParameterTypeRepo, MenuItemRepository $menuItemRepository) {
         $this->routeRepo = $routeRepo;
         $this->routeParameterRepo = $routeParameterRepo;
         $this->routeParameterTypeRepo = $routeParameterTypeRepo;
+        $this->menuItemRepo = $menuItemRepository;
     }
 
     /**
@@ -86,6 +97,15 @@ class RouteManager extends Manager {
          * @var Route $route
          */
         foreach ($toRemove as $routeName => $route) {
+            /** @var MenuItem $item */
+            foreach ($route->getItems() as $item) {
+                $parent = $item->getParent();
+                /** @var MenuItem $child */
+                foreach ($item->getChildren() as $child) {
+                    $child->setParent($parent);
+                    $this->menuItemRepo->save($child);
+                }
+            }
             $this->removeRoute($route);
         }
     }
@@ -100,25 +120,38 @@ class RouteManager extends Manager {
         $this->routeRepo->save($routeEntity);
         $compiledRoute = $route->compile();
         $requiredType = $this->routeParameterTypeRepo->findRequiredType();
+
+        $parametersToRemove = [];
+        /** @var RouteParameter $parameterEntity */
+        foreach ($routeEntity->getParameters() as $parameterEntity) {
+            $parametersToRemove[$parameterEntity->getId()] = $parameterEntity;
+        }
+
         foreach ($compiledRoute->getVariables() as $parameter) {
             $parameterEntity = $this->routeParameterRepo->saveIfNotExists($routeEntity, $parameter, $requiredType);
             $parameterEntity->setRequirement($route->getRequirement($parameter));
             $parameterEntity->setDefaultValue($route->getDefault($parameter));
             $this->routeParameterRepo->save($parameterEntity);
+            unset($parametersToRemove[$parameterEntity->getId()]);
         }
-        // TODO: This, once the bundle is Symfony 3.0 ready
-        // if parameter is _scheme or _method - get reqs with those methods? Should we even care?
-        // Maybe test this on a project that actually makes use of hosts, schemes and methods requirements for its routes
-        // From symfony code:
-//        if ('_scheme' === $key) {
-//            @trigger_error('The "_scheme" requirement is deprecated since version 2.2 and will be removed in 3.0. Use the setSchemes() method instead.', E_USER_DEPRECATED);
-//
-//            $this->setSchemes(explode('|', $regex));
-//        } elseif ('_method' === $key) {
-//            @trigger_error('The "_method" requirement is deprecated since version 2.2 and will be removed in 3.0. Use the setMethods() method instead.', E_USER_DEPRECATED);
-//
-//            $this->setMethods(explode('|', $regex));
+
+//        if ($route->getSchemes()) {
+//            $schemeParameterEntity = $this->routeParameterRepo->saveIfNotExists($routeEntity, '_scheme', $requiredType);
+//            $schemeParameterEntity->setRequirement(implode('|', $route->getSchemes()));
+//            $schemeParameterEntity->setDefaultValue($route->getDefault('_scheme'));
+//            $this->routeParameterRepo->save($schemeParameterEntity);
+//            unset($parametersToRemove[$schemeParameterEntity->getId()]);
+//        } else {
+//            $schemeParameterEntity = $this->routeParameterRepo->findOneByRouteAndParameter($routeEntity, '_scheme');
+//            if ($schemeParameterEntity) {
+//                $this->routeParameterRepo->remove($schemeParameterEntity);
+//            }
 //        }
+
+        /** @var RouteParameter $parameterEntity */
+        foreach ($parametersToRemove as $parameterEntity) {
+            $this->routeParameterRepo->remove($parameterEntity);
+        }
     }
 
     public function removeRoute(Route $route) {

@@ -33,7 +33,7 @@ class MenuItem {
     protected $name;
 
     /**
-     * @ORM\Column(name="ord", type="string", options={"unsigned"=true}, nullable=false)
+     * @ORM\Column(name="ord", type="smallint", options={"unsigned"=true}, nullable=false)
      */
     protected $ord = 0;
 

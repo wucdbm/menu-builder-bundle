@@ -16,8 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
-// TODO Rename to FilterType
-class MenuFilterType extends BaseFilterType {
+class FilterType extends BaseFilterType {
 
     /**
      * @param FormBuilderInterface $builder

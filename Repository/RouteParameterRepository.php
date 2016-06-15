@@ -127,4 +127,10 @@ class RouteParameterRepository extends AbstractRepository {
         $em->flush($parameter);
     }
 
+    public function remove(RouteParameter $parameter) {
+        $em = $this->getEntityManager();
+        $em->remove($parameter);
+        $em->flush($parameter);
+    }
+
 }

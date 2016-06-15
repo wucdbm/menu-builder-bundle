@@ -18,6 +18,9 @@ class RouteFilter extends AbstractFilter {
     const IS_NAMED_TRUE = 1,
         IS_NAMED_FALSE = 2;
 
+    const IS_SYSTEM_TRUE = 1,
+        IS_SYSTEM_FALSE = 2;
+
     /** @var  string */
     protected $name;
 
@@ -32,6 +35,9 @@ class RouteFilter extends AbstractFilter {
 
     /** @var  integer */
     protected $isNamed;
+
+    /** @var  integer */
+    protected $isSystem;
 
     /**
      * @return string
@@ -101,6 +107,20 @@ class RouteFilter extends AbstractFilter {
      */
     public function setParameter($parameter) {
         $this->parameter = $parameter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsSystem() {
+        return $this->isSystem;
+    }
+
+    /**
+     * @param int $isSystem
+     */
+    public function setIsSystem($isSystem) {
+        $this->isSystem = $isSystem;
     }
 
 }

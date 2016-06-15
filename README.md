@@ -3,21 +3,11 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 ## Upcoming / TODO
 
-- TODO: When removing dead routes, take all MenuItem s and move all their children to their parent before removing the items together with the Route
-- TODO: When removing an item, attach its children to its parent, if any
-- TODO: Option to remove an item with all its children
-- BUG: default value for _locale, then select some value - still generates with default value
-- TODO: Introduce cache
-- Feature: Make it possible to completely ignore route parameters such as `_locale`, `_scheme` (maybe `_host`?) and use those from the current environment - a valid use case for that is if a user is browsing the french version of the website, but I want all links on my menu to link to pages in french and not the default fallback to english for instance.
-- UX: Better handling of route requirements such as asd(ffs|xd)|dasdf - look at fgetcsv
-- Feature: Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value. Save the default value fo each parameter in its RouteParameter entity and if the field is blank, use the default value. that is, if the MenuItemParameter value is empty, use the RouteParameter default value. Also save the default value upon creation of the MenuItem and use that if the route no longer has a default value. This will prevent removing the default value and having no value on the MenuItem.
-- TODO: Error pages for missing items - instead of type hinting the doctrine entities in the controllers, take their IDs and show an error page if any entity was not found.
-- use a generator in menuTopLevelItems?
-- TODO: Is system filter for route list
-- TODO: Static config with system routes - upon import, always make all of these system
+- TODO: Introduce cache. Use either WucdbmBundle or Symfony's Cache component, if it finally gets native Memcached impl.
 
 ## Minor TODO
 - Put docs inside of this bundle, this is the Core and is for developers only. The Client one is meant to be your base client, if that does not satisfy you, build your own with your own user experience
+- TODO: Static config with system routes - upon import, always make all of these system
 
 ## Usage
 

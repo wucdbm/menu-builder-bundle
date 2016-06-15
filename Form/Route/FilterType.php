@@ -18,7 +18,7 @@ use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\ChoiceFilterType;
 use Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType;
 
-class RouteFilterType extends BaseFilterType {
+class FilterType extends BaseFilterType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -27,10 +27,18 @@ class RouteFilterType extends BaseFilterType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('isNamed', ChoiceFilterType::class, [
-                'placeholder'       => 'Is named filter',
+                'placeholder'       => 'Is Named Filter',
                 'choices'           => [
                     'Only NOT named' => RouteFilter::IS_NAMED_FALSE,
                     'Only named'     => RouteFilter::IS_NAMED_TRUE
+                ],
+                'choices_as_values' => true
+            ])
+            ->add('isSystem', ChoiceFilterType::class, [
+                'placeholder'       => 'Type Filter',
+                'choices'           => [
+                    'Public Routes' => RouteFilter::IS_SYSTEM_FALSE,
+                    'System Routes' => RouteFilter::IS_SYSTEM_TRUE
                 ],
                 'choices_as_values' => true
             ])
