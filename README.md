@@ -4,14 +4,20 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 ## Upcoming / TODO
 
 - TODO: When removing dead routes, take all MenuItem s and move all their children to their parent before removing the items together with the Route
+- TODO: When removing an item, attach its children to its parent, if any
+- TODO: Option to remove an item with all its children
 - BUG: default value for _locale, then select some value - still generates with default value
 - TODO: Introduce cache
-- Put docs inside of this bundle, this is the Core and is for developers only. The Client one is meant to be your base client, if that does not satisfy you, build your own with your own user experience
 - Feature: Make it possible to completely ignore route parameters such as `_locale`, `_scheme` (maybe `_host`?) and use those from the current environment - a valid use case for that is if a user is browsing the french version of the website, but I want all links on my menu to link to pages in french and not the default fallback to english for instance.
-- UX: Better handling of route requirements such as asd|(ffs|xd)|dasdf - strip the parenthesis for the time being or process it somehow
+- UX: Better handling of route requirements such as asd(ffs|xd)|dasdf - look at fgetcsv
 - Feature: Force a parameter to remain blank - useful for _locale and such, or when a parameter has a default value. Save the default value fo each parameter in its RouteParameter entity and if the field is blank, use the default value. that is, if the MenuItemParameter value is empty, use the RouteParameter default value. Also save the default value upon creation of the MenuItem and use that if the route no longer has a default value. This will prevent removing the default value and having no value on the MenuItem.
-- Feature: Order the menu with something like jQuery UI draggable
 - TODO: Error pages for missing items - instead of type hinting the doctrine entities in the controllers, take their IDs and show an error page if any entity was not found.
+- use a generator in menuTopLevelItems?
+- TODO: Is system filter for route list
+- TODO: Static config with system routes - upon import, always make all of these system
+
+## Minor TODO
+- Put docs inside of this bundle, this is the Core and is for developers only. The Client one is meant to be your base client, if that does not satisfy you, build your own with your own user experience
 
 ## Usage
 
@@ -40,9 +46,13 @@ Assuming that /admin is protected by a firewall, the builder should be secure an
 
 You can create a link to the builder using `{{ path('wucdbm_menu_builder_dashboard') }}`, or embed it into your admin UI via an iframe like so `<iframe src="{{ path('wucdbm_menu_builder_dashboard') }}" style="border: 0; width: 100%; height: 100%;"></iframe>`
 
-The User Interface is pretty self-explanatory. Once you have created a menu, you can access it in your application by calling the `getMenu` 
-twig function, which will return `Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu` or `null`. A menu contains `Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem`s.
-Menu items can be a parent of another MenuItem and have children. A good idea when listing the top-level menu is to only list items whose parent is null:
+The User Interface is pretty anemic as this bundle only implements the core functionality and the administrative (for developers) functionality. 
+If you want to let users (non-developers) manipulate menus, check out the `WucdbmMenuBuilderClientBundle()`
+Once you have created a menu, you can access it in your application by calling the `getMenu` 
+twig function, which will return `Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu` or `null`. 
+A menu contains `Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem`s.
+Menu items can be nested, ie they have a parent and children. 
+A good idea when listing the top-level menu is to only list items whose parent is null:
 
 ```
 {# New: You can use the menuTopLevelItems filter to get all top-level items: #}
@@ -51,15 +61,13 @@ Menu items can be a parent of another MenuItem and have children. A good idea wh
 
 
 ```
-{% if getMenu(1) %} {# You could also use any constant with the constant() function or any other way of referencing the menu #}
+{% if getMenu(1) %} {# You could also use any constant with the constant() function or any other way of referencing the menu ID #}
     {% for item in getMenu(1).items if item.parent is null %}
-        {# You could recursively include this template to list the sub-menus #}
-        {% include '@Some/location/template.html.twig' with {items: item.children} %} 
+        {# You can recursively include your templates to list the sub-menus #}
+        {% include '@Some/location/template.html.twig' with {items: item.children} %}
     {% endfor %}
 {% endif %}
 ```
-
-Another idea is to build pages using the menu builder like so:
 
 ```
 {% if getMenu(1) %}
@@ -114,7 +122,7 @@ some_resource:
     defaults:
         _locale: %locale%
 ```
-Generally, you do NOT need the `defaults: {_locale: %locale%}` part because you already have the default locale configured in your framework bundle config.
+Generally, you do NOT need the `defaults: {_locale: %locale%}` part because you already have the default locale configured in your framework bundle config, but this will only work for `_locale`
 However, with this approach the default value for the `_locale` route parameter will be available to the menu builder when importing routes.
 When building a link, you may choose to leave the field blank if there is a default parameter. 
 This will allow you to change the default value for that parameter at a later point, WITHOUT having to update menu items. 
