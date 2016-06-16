@@ -43,6 +43,11 @@ class Menu {
     protected $isSystem = false;
 
     /**
+     * @ORM\Column(name="is_api_visible", type="boolean", nullable=false)
+     */
+    protected $isApiVisible = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="menu")
      * @ORM\OrderBy({"ord" = "ASC"})
      */
@@ -133,6 +138,20 @@ class Menu {
      */
     public function setIsSystem($isSystem) {
         $this->isSystem = $isSystem;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsApiVisible() {
+        return $this->isApiVisible;
+    }
+
+    /**
+     * @param mixed $isApiVisible
+     */
+    public function setIsApiVisible($isApiVisible) {
+        $this->isApiVisible = $isApiVisible;
     }
 
 }

@@ -36,6 +36,10 @@ class CreateType extends AbstractType {
             ->add('isSystem', CheckboxType::class, [
                 'label'    => 'This is a system Menu. System menus can not be deleted.',
                 'required' => false
+            ])
+            ->add('isApiVisible', CheckboxType::class, [
+                'label'    => 'This is an API invisible Menu. Invisible menus can not be fetched via the API',
+                'required' => false
             ]);
     }
 

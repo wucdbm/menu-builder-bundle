@@ -31,3 +31,14 @@
         </a>
     {% endif %}
 </td>
+<td>
+    {% if menu.isApiVisible %}
+        <a href="{{ path('wucdbm_menu_builder_menu_make_api_invisibe', {id: menu.id}) }}" class="btn btn-success ajax-action">
+            Visible
+        </a>
+    {% else %}
+        <a href="{{ path('wucdbm_menu_builder_menu_make_api_visible', {id: menu.id}) }}" class="btn btn-danger ajax-action">
+            Invisible
+        </a>
+    {% endif %}
+</td>

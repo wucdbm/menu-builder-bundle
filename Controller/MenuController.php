@@ -73,6 +73,33 @@ class MenuController extends BaseController {
         ]);
     }
 
+    public function makeApiVisibleAction($id) {
+        return $this->apiVisible($id, true);
+    }
+
+    public function makeApiInvisibleAction($id) {
+        return $this->apiVisible($id, false);
+    }
+
+    protected function apiVisible($id, $boolean) {
+        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
+        $menu = $repo->findOneById($id);
+
+        if (!$menu) {
+            return $this->witter([
+                'text' => 'Menu not found'
+            ]);
+        }
+
+        $menu->setIsApiVisible($boolean);
+        $repo->save($menu);
+
+        return $this->json([
+            'success' => true,
+            'refresh' => true
+        ]);
+    }
+
     public function previewAction(Menu $menu) {
         $data = [
             'menu' => $menu

@@ -29,3 +29,11 @@ wucdbm_menu_builder_menu_make_system:
 wucdbm_menu_builder_menu_make_public:
     path:        /{id}/make/public
     defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:makePublic }
+
+wucdbm_menu_builder_menu_make_api_visible:
+    path:        /{id}/make/api/visible
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:makeApiVisible }
+
+wucdbm_menu_builder_menu_make_api_invisibe:
+    path:        /{id}/make/api/invisible
+    defaults:    { _controller: WucdbmMenuBuilderBundle:Menu:makeApiInvisible }
