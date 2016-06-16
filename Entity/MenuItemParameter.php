@@ -13,6 +13,8 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use \Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository;
+
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository")
  * @ORM\Table(name="_wucdbm__menu_builder_menus_items_parameters",
@@ -36,9 +38,9 @@ class MenuItemParameter {
     protected $value;
 
     /**
-     * @ORM\Column(name="use_default_value", type="boolean", nullable=false)
+     * @ORM\Column(name="use_value_from_context", type="boolean", nullable=false)
      */
-    protected $useDefaultValue = false;
+    protected $useValueFromContext = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", inversedBy="parameters")
@@ -76,15 +78,15 @@ class MenuItemParameter {
     /**
      * @return mixed
      */
-    public function getUseDefaultValue() {
-        return $this->useDefaultValue;
+    public function getUseValueFromContext() {
+        return $this->useValueFromContext;
     }
 
     /**
-     * @param mixed $useDefaultValue
+     * @param mixed $useValueFromContext
      */
-    public function setUseDefaultValue($useDefaultValue) {
-        $this->useDefaultValue = $useDefaultValue;
+    public function setUseValueFromContext($useValueFromContext) {
+        $this->useValueFromContext = $useValueFromContext;
     }
 
     /**

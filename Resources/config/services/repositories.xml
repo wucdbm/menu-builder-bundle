@@ -9,6 +9,7 @@
 
     <services>
 
+        <!-- can we use container parameters in the attributes? -->
         <service id="wucdbm_menu_builder.repo.abstract" abstract="true">
             <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
         </service>
@@ -20,6 +21,10 @@
         <service id="wucdbm_menu_builder.repo.menus_items" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemRepository"
                  parent="wucdbm_menu_builder.repo.abstract">
             <argument>Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem</argument>
+        </service>
+        <service id="wucdbm_menu_builder.repo.menus_items_parameters" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository"
+                 parent="wucdbm_menu_builder.repo.abstract">
+            <argument>Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItemParameter</argument>
         </service>
 
         <service id="wucdbm_menu_builder.repo.routes" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository"
