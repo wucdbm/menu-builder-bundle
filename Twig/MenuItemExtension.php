@@ -55,24 +55,32 @@ class MenuItemExtension extends \Twig_Extension {
         /** @var MenuItemParameter $parameter */
         foreach ($item->getParameters() as $parameter) {
             $key = $parameter->getParameter()->getParameter();
-            $value = $this->getValue($parameter);
-            $parameters[$key] = $value;
+            $parameters[$key] = $this->getValue($parameter);
         }
 
         return $this->router->generate($route, $parameters, $type);
     }
 
     protected function getValue(MenuItemParameter $parameter) {
-        if ($parameter->getUseDefaultValue()) {
+        if ($parameter->getUseValueFromContext()) {
             $routeParameter = $parameter->getParameter();
-            $routeParameterDefaultValue = $routeParameter->getDefaultValue();
-            if ($routeParameterDefaultValue) {
-                return $routeParameterDefaultValue;
+
+            // If the current context has this parameter, use it
+            if ($this->router->getContext()->hasParameter($routeParameter->getParameter())) {
+                return $this->router->getContext()->getParameter($routeParameter->getParameter());
             }
-            // If configured to use the default value, but the default value is no longer present for the RouteParameter
-            // return value instead because the RouteParameter default value has been saved in the value field
-            // when this MenuItemParameter was created
+
+            // Otherwise, use the default value for this route
+            // Note: This might change, and upon importing routes anew
+            // The URLs generated will now use the new default value
+            $default = $routeParameter->getDefaultValue();
+            if ($default) {
+                return $default;
+            }
         }
+
+        // If no value was found in the context or the default route parameter value
+        // return the last copy of its default
 
         return $parameter->getValue();
     }

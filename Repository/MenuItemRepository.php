@@ -11,6 +11,7 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\WucdbmBundle\Repository\AbstractRepository;
 
@@ -30,20 +31,13 @@ class MenuItemRepository extends AbstractRepository {
         return $query->getOneOrNullResult();
     }
 
-    public function remove(MenuItem $item) {
+    public function remove(MenuItem $item, $isFull = true) {
         $em = $this->getEntityManager();
         $conn = $em->getConnection();
         $conn->beginTransaction();
         try {
-            foreach ($item->getChildren() as $child) {
-                $this->remove($child);
-            }
-            
-            foreach ($item->getParameters() as $parameter) {
-                $em->remove($parameter);
-            }
+            $this->_remove($em, $item, $isFull);
 
-            $em->remove($item);
             $em->flush();
 
             $conn->commit();
@@ -51,6 +45,25 @@ class MenuItemRepository extends AbstractRepository {
             $conn->rollBack();
             throw $e;
         }
+    }
+
+    public function _remove(EntityManager $em, MenuItem $item, $isFull = true) {
+        $parent = $item->getParent();
+        /** @var MenuItem $child */
+        foreach ($item->getChildren() as $child) {
+            if ($isFull) {
+                $this->_remove($em, $child, $isFull);
+            } else {
+                $child->setParent($parent);
+                $em->persist($child);
+            }
+        }
+
+        foreach ($item->getParameters() as $parameter) {
+            $em->remove($parameter);
+        }
+
+        $em->remove($item);
     }
 
     public function save(MenuItem $item) {

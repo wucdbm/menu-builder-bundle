@@ -50,6 +50,16 @@ class RouteRepository extends AbstractRepository {
                 ->setParameter('route', '%' . $filter->getRoute() . '%');
         }
 
+        if ($filter->getParameter()) {
+            $builder->andWhere('p.parameter LIKE :parameter')
+                ->setParameter('parameter', '%' . $filter->getParameter() . '%');
+        }
+
+        if ($filter->getParameterName()) {
+            $builder->andWhere('p.name LIKE :parameterName')
+                ->setParameter('parameterName', '%' . $filter->getParameterName() . '%');
+        }
+
         if ($filter->getIsNamed()) {
             switch ($filter->getIsNamed()) {
                 case RouteFilter::IS_NAMED_TRUE:
@@ -57,6 +67,19 @@ class RouteRepository extends AbstractRepository {
                     break;
                 case RouteFilter::IS_NAMED_FALSE:
                     $builder->andWhere('r.name IS NULL');
+                    break;
+            }
+        }
+
+        if ($filter->getIsSystem()) {
+            switch ($filter->getIsSystem()) {
+                case RouteFilter::IS_SYSTEM_TRUE:
+                    $builder->andWhere('r.isSystem = :isSystem')
+                        ->setParameter('isSystem', true);
+                    break;
+                case RouteFilter::IS_SYSTEM_FALSE:
+                    $builder->andWhere('r.isSystem = :isSystem')
+                        ->setParameter('isSystem', false);
                     break;
             }
         }
@@ -101,9 +124,9 @@ class RouteRepository extends AbstractRepository {
 
     public function getQueryBuilder() {
         return $this->createQueryBuilder('r')
-            ->addSelect('items, parameters')
-            ->leftJoin('r.items', 'items')
-            ->leftJoin('r.parameters', 'parameters');
+            ->addSelect('i, p')
+            ->leftJoin('r.items', 'i')
+            ->leftJoin('r.parameters', 'p');
     }
 
     public function getRoutesWithParametersQueryBuilder() {

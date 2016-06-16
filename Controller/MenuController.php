@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Menu\MenuFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\CreateType;
-use Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\MenuFilterType;
+use Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\FilterType;
 use Wucdbm\Bundle\WucdbmBundle\Controller\BaseController;
 
 class MenuController extends BaseController {
@@ -25,7 +25,7 @@ class MenuController extends BaseController {
         $repo = $this->get('wucdbm_menu_builder.repo.menus');
         $filter = new MenuFilter();
         $pagination = $filter->getPagination()->enable();
-        $filterForm = $this->createForm(MenuFilterType::class, $filter);
+        $filterForm = $this->createForm(FilterType::class, $filter);
         $filter->load($request, $filterForm);
         $menus = $repo->filter($filter);
         $data = [

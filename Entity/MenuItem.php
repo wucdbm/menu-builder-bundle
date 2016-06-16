@@ -33,9 +33,14 @@ class MenuItem {
     protected $name;
 
     /**
-     * @ORM\Column(name="ord", type="string", options={"unsigned"=true}, nullable=false)
+     * @ORM\Column(name="ord", type="smallint", options={"unsigned"=true}, nullable=false)
      */
     protected $ord = 0;
+
+    /**
+     * @ORM\Column(name="use_current_locale", type="boolean", nullable=false)
+     */
+    protected $useCurrentLocale = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu", inversedBy="items")
@@ -211,6 +216,20 @@ class MenuItem {
      */
     public function setOrd($ord) {
         $this->ord = $ord;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUseCurrentLocale() {
+        return $this->useCurrentLocale;
+    }
+
+    /**
+     * @param mixed $useCurrentLocale
+     */
+    public function setUseCurrentLocale($useCurrentLocale) {
+        $this->useCurrentLocale = $useCurrentLocale;
     }
 
 }

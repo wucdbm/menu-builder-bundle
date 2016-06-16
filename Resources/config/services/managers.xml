@@ -24,6 +24,7 @@
             <argument type="service" id="wucdbm_menu_builder.repo.routes"/>
             <argument type="service" id="wucdbm_menu_builder.repo.routes_parameters"/>
             <argument type="service" id="wucdbm_menu_builder.repo.routes_parameters_types"/>
+            <argument type="service" id="wucdbm_menu_builder.repo.menus_items"/>
         </service>
 
         <service id="wucdbm_menu_builder.manager.menus" class="Wucdbm\Bundle\MenuBuilderBundle\Manager\MenuManager" parent="wucdbm_menu_builder.manager.abstract">

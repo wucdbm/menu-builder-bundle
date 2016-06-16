@@ -23,7 +23,7 @@
                         <tbody>
                         {% for route in routes %}
                             <tr data-refresh="{{ path('wucdbm_menu_builder_route_refresh_row', {id: route.id}) }}">
-                                {% include '@WucdbmMenuBuilder/Route/routes/list_row.html.twig' %}
+                                {% include '@WucdbmMenuBuilder/Route/list/list_row.html.twig' %}
                             </tr>
                         {% endfor %}
                         </tbody>

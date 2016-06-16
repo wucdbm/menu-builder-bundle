@@ -14,19 +14,21 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Form\Menu;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
-use Wucdbm\Bundle\MenuBuilderBundle\Repository\RouteRepository;
-use Wucdbm\Bundle\WucdbmBundle\Form\AbstractType;
+use Wucdbm\Bundle\WucdbmBundle\Form\Filter\BaseFilterType;
 
-class RouteChoiceType extends AbstractType {
+class FilterType extends BaseFilterType {
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('route', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
-                'label'         => 'Page',
-                'class'         => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
-                'query_builder' => function (RouteRepository $repository) {
-                    return $repository->getPublicRoutesQueryBuilder();
-                },
+            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
+                'placeholder' => 'Name'
+            ])
+            ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
+                'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
                 'choice_label'  => function (Route $route) {
                     if ($route->getName()) {
                         return sprintf('%s (%s)', $route->getName(), $route->getRoute());
@@ -40,20 +42,17 @@ class RouteChoiceType extends AbstractType {
 
                     return sprintf('%s (%s)', implode(' ', $words), $route->getRoute());
                 },
-                'placeholder'   => 'Page',
-                'attr'          => [
-                    'class' => 'select2'
-                ]
+                'placeholder'  => 'Route'
             ]);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults([
-            'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem'
-        ]);
+        $resolver->setDefaults(array(
+            'data_class' => 'Wucdbm\Bundle\MenuBuilderBundle\Filter\Menu\MenuFilter'
+        ));
     }
 
-    public function getName() {
-        return 'wucdbm_menu_builder_menu_item_route_choice_type';
-    }
 }
