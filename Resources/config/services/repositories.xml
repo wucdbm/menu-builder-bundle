@@ -3,24 +3,29 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="wucdbm_menu_bundle.repo_factory_service">doctrine.orm.default_entity_manager</parameter>
-        <parameter key="wucdbm_menu_bundle.repo_factory_method">getRepository</parameter>
+        <parameter key="wucdbm_menu_bundle.repo.menus.entity_class">Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu</parameter>
+        <parameter key="wucdbm_menu_bundle.repo.menus.repository_class">Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuRepository</parameter>
+
+        <parameter key="wucdbm_menu_bundle.repo.menus_items.entity_class">Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem</parameter>
+        <parameter key="wucdbm_menu_bundle.repo.menus_items.repository_class">Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemRepository</parameter>
     </parameters>
 
     <services>
 
-        <!-- can we use container parameters in the attributes? -->
+        <!-- Since we can not use parameters in the <factory/> attributes -->
+        <!-- Simply copy/paste this service and put the correct values for your application -->
+        <!-- In case you have multiple entity managers and/or multiple DB connections -->
         <service id="wucdbm_menu_builder.repo.abstract" abstract="true">
             <factory service="doctrine.orm.default_entity_manager" method="getRepository"/>
         </service>
 
-        <service id="wucdbm_menu_builder.repo.menus" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuRepository"
+        <service id="wucdbm_menu_builder.repo.menus" class="%wucdbm_menu_bundle.repo.menus.repository_class%"
                  parent="wucdbm_menu_builder.repo.abstract">
-            <argument>Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu</argument>
+            <argument>%wucdbm_menu_bundle.repo.menus.entity_class%</argument>
         </service>
-        <service id="wucdbm_menu_builder.repo.menus_items" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemRepository"
+        <service id="wucdbm_menu_builder.repo.menus_items" class="%wucdbm_menu_bundle.repo.menus_items.repository_class%"
                  parent="wucdbm_menu_builder.repo.abstract">
-            <argument>Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem</argument>
+            <argument>%wucdbm_menu_bundle.repo.menus_items.entity_class%</argument>
         </service>
         <service id="wucdbm_menu_builder.repo.menus_items_parameters" class="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository"
                  parent="wucdbm_menu_builder.repo.abstract">

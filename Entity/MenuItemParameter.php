@@ -13,8 +13,6 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use \Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository;
-
 /**
  * @ORM\Entity(repositoryClass="Wucdbm\Bundle\MenuBuilderBundle\Repository\MenuItemParameterRepository")
  * @ORM\Table(name="_wucdbm__menu_builder_menus_items_parameters",
