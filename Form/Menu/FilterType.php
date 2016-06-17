@@ -24,9 +24,6 @@ class FilterType extends BaseFilterType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
-                'placeholder' => 'Name'
-            ])
             ->add('route', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\EntityFilterType', [
                 'class'        => 'Wucdbm\Bundle\MenuBuilderBundle\Entity\Route',
                 'choice_label'  => function (Route $route) {
@@ -43,6 +40,9 @@ class FilterType extends BaseFilterType {
                     return sprintf('%s (%s)', implode(' ', $words), $route->getRoute());
                 },
                 'placeholder'  => 'Route'
+            ])
+            ->add('name', 'Wucdbm\Bundle\WucdbmBundle\Form\Filter\TextFilterType', [
+                'placeholder' => 'Name'
             ]);
     }
 
