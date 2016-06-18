@@ -41,6 +41,14 @@ class MenuManager extends Manager {
         $this->router = $router;
     }
 
+    public function create() {
+        return new Menu();
+    }
+
+    public function createItem() {
+        return new MenuItem();
+    }
+
     public function save(Menu $menu) {
         $this->menuRepository->save($menu);
     }
@@ -59,7 +67,7 @@ class MenuManager extends Manager {
     public function findAll() {
         return $this->menuRepository->findAll();
     }
-    
+
     public function generateMenuItemUrl(MenuItem $item, $type = UrlGeneratorInterface::ABSOLUTE_URL) {
         $route = $item->getRoute()->getRoute();
         $parameters = [];
