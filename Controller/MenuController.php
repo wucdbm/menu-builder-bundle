@@ -13,7 +13,6 @@ namespace Wucdbm\Bundle\MenuBuilderBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Menu\MenuFilter;
 use Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\CreateType;
 use Wucdbm\Bundle\MenuBuilderBundle\Form\Menu\FilterType;
@@ -132,13 +131,13 @@ class MenuController extends BaseController {
     }
 
     public function createAction(Request $request) {
-        $menu = new Menu();
+        $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
+        $menu = $manager->create();
         $form = $this->createForm(CreateType::class, $menu);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
             $manager->save($menu);
 
             return $this->redirectToRoute('wucdbm_menu_builder_menu_edit', [
