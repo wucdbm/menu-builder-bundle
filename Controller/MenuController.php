@@ -38,7 +38,10 @@ class MenuController extends BaseController {
         return $this->render('@WucdbmMenuBuilder/Menu/list.html.twig', $data);
     }
 
-    public function refreshListRowAction(Menu $menu) {
+    public function refreshListRowAction($id) {
+        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
+        $menu = $repo->findOneById($id);
+
         $data = [
             'menu' => $menu
         ];
@@ -100,7 +103,10 @@ class MenuController extends BaseController {
         ]);
     }
 
-    public function previewAction(Menu $menu) {
+    public function previewAction($id) {
+        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
+        $menu = $repo->findOneById($id);
+
         $data = [
             'menu' => $menu
         ];
