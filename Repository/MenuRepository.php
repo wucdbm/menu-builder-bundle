@@ -59,7 +59,7 @@ class MenuRepository extends AbstractRepository {
 
     /**
      * @param $id
-     * @return Menu
+     * @return Menu|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneById($id) {
