@@ -55,7 +55,7 @@ class MenuManager extends Manager {
 
     /**
      * @param $id
-     * @return Menu
+     * @return Menu|null
      */
     public function findOneById($id) {
         return $this->menuRepository->findOneById($id);
