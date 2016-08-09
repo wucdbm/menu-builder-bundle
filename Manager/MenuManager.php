@@ -50,6 +50,7 @@ class MenuManager extends Manager {
     }
 
     public function save(Menu $menu) {
+        $menu->setDateModified(new \DateTime());
         $this->menuRepository->save($menu);
     }
 
