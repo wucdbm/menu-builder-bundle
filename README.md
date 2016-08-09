@@ -4,6 +4,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 ## Upcoming / TODO
 
 - TODO: Introduce cache. Use either WucdbmBundle or Symfony's Cache component, if it finally gets native Memcached impl.
+- TODO: locale-specific links
 
 ## Minor TODO
 - Put docs inside of this bundle, this is the Core and is for developers only. The Client one is meant to be your base client, if that does not satisfy you, build your own with your own user experience
