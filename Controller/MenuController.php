@@ -57,8 +57,8 @@ class MenuController extends BaseController {
     }
 
     protected function system($id, $boolean) {
-        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
-        $menu = $repo->findOneById($id);
+        $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
+        $menu = $manager->findOneById($id);
 
         if (!$menu) {
             return $this->witter([
@@ -67,7 +67,7 @@ class MenuController extends BaseController {
         }
 
         $menu->setIsSystem($boolean);
-        $repo->save($menu);
+        $manager->save($menu);
 
         return $this->json([
             'success' => true,
@@ -84,8 +84,8 @@ class MenuController extends BaseController {
     }
 
     protected function apiVisible($id, $boolean) {
-        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
-        $menu = $repo->findOneById($id);
+        $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
+        $menu = $manager->findOneById($id);
 
         if (!$menu) {
             return $this->witter([
@@ -94,7 +94,7 @@ class MenuController extends BaseController {
         }
 
         $menu->setIsApiVisible($boolean);
-        $repo->save($menu);
+        $manager->save($menu);
 
         return $this->json([
             'success' => true,
@@ -122,10 +122,10 @@ class MenuController extends BaseController {
             return new Response('Error - Empty value', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $repo = $this->container->get('wucdbm_menu_builder.repo.menus');
-        $menu = $repo->findOneById($id);
+        $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
+        $menu = $manager->findOneById($id);
         $menu->setName($name);
-        $repo->save($menu);
+        $manager->save($menu);
 
         return new Response();
     }

@@ -48,6 +48,11 @@ class Menu {
     protected $isApiVisible = false;
 
     /**
+     * @ORM\Column(name="date_modified", type="datetime", nullable=false)
+     */
+    protected $dateModified;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem", mappedBy="menu")
      * @ORM\OrderBy({"ord" = "ASC"})
      */
@@ -58,6 +63,21 @@ class Menu {
      */
     public function __construct() {
         $this->items = new ArrayCollection();
+        $this->dateModified = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateModified() {
+        return $this->dateModified;
+    }
+
+    /**
+     * @param \DateTime $dateModified
+     */
+    public function setDateModified(\DateTime $dateModified) {
+        $this->dateModified = $dateModified;
     }
 
     /**
