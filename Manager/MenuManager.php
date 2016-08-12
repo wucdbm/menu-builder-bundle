@@ -70,6 +70,10 @@ class MenuManager extends Manager {
     }
 
     public function generateMenuItemUrl(MenuItem $item, $type = UrlGeneratorInterface::ABSOLUTE_URL) {
+        if ($item->getUrl()) {
+            return $item->getUrl();
+        }
+
         $route = $item->getRoute()->getRoute();
         $parameters = [];
         /** @var MenuItemParameter $parameter */
