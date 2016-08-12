@@ -11,6 +11,8 @@
 
 namespace Wucdbm\Bundle\MenuBuilderBundle\Repository;
 
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Menu;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\Route;
 use Wucdbm\Bundle\MenuBuilderBundle\Filter\Menu\MenuFilter;
@@ -53,6 +55,26 @@ class MenuRepository extends AbstractRepository {
             $builder->andWhere('itemRoute.id = :routeId')
                 ->setParameter('routeId', $route->getId());
         }
+
+//        $pagination = $filter->getPagination();
+//
+//        if ($pagination->getLimit()) {
+//            $builder->setMaxResults($pagination->getLimit());
+//        }
+//        $builder->setFirstResult($pagination->getOffset());
+//
+////        if ($pagination->isEnabled()) {
+//        $query = $builder->getQuery();
+//
+//        $query->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, LimitSubqueryOutputWalker::class);
+//
+//        $query->setHydrationMode($filter->getHydrationMode());
+//        $paginator = new Paginator($query, true);
+//        $pagination->setTotalResults(count($paginator));
+//
+//        return $paginator;
+//
+////        }
 
         return $this->returnFilteredEntities($builder, $filter, 'm.id');
     }
