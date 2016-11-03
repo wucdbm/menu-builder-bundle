@@ -3,6 +3,7 @@ A simple, standalone Menu Builder for Symfony 2 Applications
 
 ## Upcoming / TODO
 
+- TODO: When fed a direct URL, use the router and match it against existing routes, and if it's an app URL, try parsing it down to values to be saved, and ask the user if they want a proper menu item instead
 - TODO: Introduce cache. Use either WucdbmBundle or Symfony's Cache component, if it finally gets native Memcached impl.
 
 ## Minor TODO
